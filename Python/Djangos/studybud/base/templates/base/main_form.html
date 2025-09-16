@@ -1,0 +1,139 @@
+{% extends "base/main.html" %} {% block content %}{% load widget_tweaks %}
+
+<style>
+	.form-bg {
+		min-height: 100vh;
+	}
+
+	.form-title {
+		font-weight: 700;
+		color: #fff;
+		letter-spacing: 0.5px;
+	}
+
+	.modern-form {
+		background: #23272f;
+		border-radius: 18px;
+		box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.1);
+		border: 1.5px solid #2d3542;
+	}
+
+	.form-label {
+		color: #b6eaff;
+		font-weight: 500;
+		margin-bottom: 8px;
+	}
+
+	.form-control {
+		background: #23272f;
+		border: 1.5px solid #3a4252;
+		color: #fff;
+		border-radius: 10px;
+		font-size: 1.1rem;
+		padding: 14px 16px;
+		transition: border-color 0.2s, box-shadow 0.2s;
+		box-shadow: none;
+	}
+
+	.form-control:focus {
+		border-color: #00b8d9;
+		box-shadow: 0 0 0 2px #00b8d955;
+		background: #23272f;
+		color: #fff;
+	}
+
+	textarea.form-control {
+		min-height: 180px;
+		resize: vertical;
+	}
+
+	.invalid-feedback {
+		color: #ff6b6b;
+		font-weight: 500;
+		font-size: 0.97rem;
+		margin-top: 0.25rem;
+	}
+
+	.btn {
+		border-radius: 8px;
+		font-weight: 600;
+		font-size: 1.08rem;
+		padding: 12px 24px;
+		transition: all 0.2s;
+	}
+
+	.btn-primary {
+		background: linear-gradient(135deg, #00b8d9, #0099cc);
+		border: none;
+		color: #fff;
+		box-shadow: 0 2px 8px rgba(0, 184, 217, 0.1);
+	}
+
+	.btn-primary:hover,
+	.btn-primary:focus {
+		background: linear-gradient(135deg, #0099cc, #00b8d9);
+		color: #fff;
+		transform: translateY(-2px) scale(1.03);
+		box-shadow: 0 4px 16px rgba(0, 184, 217, 0.18);
+	}
+
+	.btn-outline-secondary {
+		border-color: #3a4252;
+		color: #b6eaff;
+		background: transparent;
+	}
+
+	.btn-outline-secondary:hover,
+	.btn-outline-secondary:focus {
+		background: #2d3542;
+		border-color: #00b8d9;
+		color: #fff;
+	}
+
+	@media (max-width: 768px) {
+		.modern-form {
+			padding: 1.2rem;
+		}
+
+		.form-title {
+			font-size: 1.5rem;
+		}
+
+		.btn {
+			width: 100%;
+		}
+
+		.d-flex.gap-2 {
+			flex-direction: column;
+			gap: 0.75rem !important;
+		}
+	}
+</style>
+<div class="form-bg py-5">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
+				<h2 class="form-title mb-4 text-center">{{ titre }}</h2>
+				<form method="post" class="modern-form p-4">
+					{% csrf_token %} {{form.as_p}}
+					<button type="submit" class="btn btn-primary mt-3 w-100">
+						Publier
+					</button>
+				</form>
+			</div>
+		</div>
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-10 col-lg-8">
+				<h2 class="form-title mb-4 text-center">Liste Ajoutée</h2>
+				<div class="d-flex flex-wrap gap-2">
+					{% for item in items %}
+					<div class="list-group-item flex-fill" style="min-width: 180px">
+						<a href="{% url 'update-classe' item.pk %}">{{ item.title }}</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

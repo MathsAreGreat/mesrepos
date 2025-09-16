@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Math Article | Pythagorean Theorem</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<style>
+			.math-formula {
+				font-family: "Times New Roman", Times, serif;
+				font-style: italic;
+			}
+			.diagram {
+				background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+			}
+		</style>
+	</head>
+	<body class="bg-gray-50 min-h-screen flex flex-col">
+		<!-- Header with Title -->
+		<header class="bg-blue-600 text-white shadow-lg">
+			<div class="container mx-auto px-4 py-8">
+				<h1 class="text-4xl md:text-5xl font-bold text-center mb-2">
+					The Pythagorean Theorem
+				</h1>
+				<p class="text-center text-blue-100 text-lg">
+					Exploring the Fundamental Relationship in Right Triangles
+				</p>
+			</div>
+		</header>
+
+		<!-- Main Content Area -->
+		<main class="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+			<article class="bg-white rounded-lg shadow-md overflow-hidden">
+				<!-- Introduction Section -->
+				<section class="p-6">
+					<h2 class="text-2xl font-semibold text-blue-800 mb-4">
+						Introduction
+					</h2>
+					<p class="text-gray-700 mb-4 leading-relaxed">
+						The Pythagorean Theorem is one of the most fundamental and
+						well-known mathematical principles, dating back to ancient times.
+						Named after the Greek mathematician Pythagoras, this theorem
+						establishes a crucial relationship between the sides of a
+						right-angled triangle.
+					</p>
+					<div class="flex items-center mb-4">
+						<i class="fas fa-lightbulb text-yellow-500 text-2xl mr-3"></i>
+						<p class="text-gray-700 italic">
+							This theorem has applications across geometry, trigonometry,
+							physics, engineering, and many other fields.
+						</p>
+					</div>
+				</section>
+
+				<!-- Theorem Statement Section -->
+				<section class="bg-gray-50 p-6 border-t border-b border-gray-200">
+					<h2 class="text-2xl font-semibold text-blue-800 mb-4">The Theorem</h2>
+					<p class="text-gray-700 mb-4 leading-relaxed">
+						In any right-angled triangle, the square of the length of the
+						hypotenuse (the side opposite the right angle) is equal to the sum
+						of the squares of the lengths of the other two sides.
+					</p>
+					<div
+						class="math-formula bg-white p-4 rounded-md shadow-inner text-center text-xl mb-4"
+					>
+						c² = a² + b²
+					</div>
+					<p class="text-gray-700">Where:</p>
+					<ul class="list-disc pl-6 text-gray-700 space-y-1 mt-2">
+						<li>
+							<span class="font-medium">c</span> is the length of the hypotenuse
+						</li>
+						<li>
+							<span class="font-medium">a</span> and
+							<span class="font-medium">b</span> are the lengths of the other
+							two sides
+						</li>
+					</ul>
+				</section>
+
+				<!-- Visual Diagram -->
+				<section class="p-6">
+					<h2 class="text-2xl font-semibold text-blue-800 mb-4">
+						Visual Representation
+					</h2>
+					<div class="diagram p-6 rounded-lg flex flex-col items-center">
+						<div class="relative w-64 h-64 mb-4">
+							<!-- Triangle -->
+							<div
+								class="absolute left-0 bottom-0 w-40 h-40 border-b-2 border-r-2 border-blue-700"
+							></div>
+							<!-- Right angle symbol -->
+							<div class="absolute left-32 bottom-0 w-4 h-4">
+								<div
+									class="absolute top-0 left-0 w-2 h-2 border-t-2 border-r-2 border-blue-700"
+								></div>
+							</div>
+							<!-- Labels -->
+							<span class="absolute left-20 bottom-0 text-blue-800 font-medium"
+								>a</span
+							>
+							<span class="absolute left-0 top-20 text-blue-800 font-medium"
+								>b</span
+							>
+							<span
+								class="absolute left-20 top-20 text-blue-800 font-medium rotate-45"
+								>c</span
+							>
+						</div>
+						<p class="text-center text-gray-700">
+							The theorem can be visualized by the squares constructed on each
+							side of the triangle. The area of the square on the hypotenuse
+							equals the sum of the areas of the squares on the other two sides.
+						</p>
+					</div>
+				</section>
+
+				<!-- Proof Section -->
+				<section class="bg-gray-50 p-6 border-t border-b border-gray-200">
+					<h2 class="text-2xl font-semibold text-blue-800 mb-4">
+						Algebraic Proof
+					</h2>
+					<p class="text-gray-700 mb-4 leading-relaxed">
+						One of the simplest proofs involves rearranging four identical right
+						triangles within a larger square:
+					</p>
+					<ol class="list-decimal pl-6 text-gray-700 space-y-2">
+						<li>
+							Consider four identical right triangles with sides a and b, and
+							hypotenuse c.
+						</li>
+						<li>Arrange them within a larger square of side length (a + b).</li>
+						<li>The area of the larger square is (a + b)² = a² + 2ab + b².</li>
+						<li>
+							The area can also be calculated as the sum of the four triangles
+							and the smaller square: 4 × (½ab) + c² = 2ab + c².
+						</li>
+						<li>Setting these equal: a² + 2ab + b² = 2ab + c².</li>
+						<li>Subtract 2ab from both sides to obtain: a² + b² = c².</li>
+					</ol>
+				</section>
+
+				<!-- Applications Section -->
+				<section class="p-6">
+					<h2 class="text-2xl font-semibold text-blue-800 mb-4">
+						Practical Applications
+					</h2>
+					<div class="grid md:grid-cols-2 gap-6">
+						<div class="bg-blue-50 p-4 rounded-lg">
+							<h3 class="font-semibold text-blue-700 mb-2 flex items-center">
+								<i class="fas fa-ruler-combined mr-2"></i> Distance Calculation
+							</h3>
+							<p class="text-gray-700">
+								The theorem is used to calculate distances between points in
+								coordinate geometry. The distance between (x₁, y₁) and (x₂, y₂)
+								is √((x₂ - x₁)² + (y₂ - y₁)²).
+							</p>
+						</div>
+						<div class="bg-blue-50 p-4 rounded-lg">
+							<h3 class="font-semibold text-blue-700 mb-2 flex items-center">
+								<i class="fas fa-home mr-2"></i> Construction
+							</h3>
+							<p class="text-gray-700">
+								Builders use the 3-4-5 rule (a special case of the theorem) to
+								ensure perfect right angles in construction projects.
+							</p>
+						</div>
+						<div class="bg-blue-50 p-4 rounded-lg">
+							<h3 class="font-semibold text-blue-700 mb-2 flex items-center">
+								<i class="fas fa-satellite-dish mr-2"></i> Navigation
+							</h3>
+							<p class="text-gray-700">
+								GPS systems and other navigation tools use the theorem to
+								calculate shortest paths and distances.
+							</p>
+						</div>
+						<div class="bg-blue-50 p-4 rounded-lg">
+							<h3 class="font-semibold text-blue-700 mb-2 flex items-center">
+								<i class="fas fa-atom mr-2"></i> Physics
+							</h3>
+							<p class="text-gray-700">
+								The theorem appears in vector mathematics, calculating
+								resultants of perpendicular forces and components.
+							</p>
+						</div>
+					</div>
+				</section>
+			</article>
+		</main>
+
+		<!-- Footer -->
+		<footer class="bg-gray-800 text-white py-8">
+			<div class="container mx-auto px-4">
+				<div class="flex flex-col md:flex-row justify-between items-center">
+					<div class="mb-4 md:mb-0">
+						<h3 class="text-xl font-bold mb-2">Math Insights</h3>
+						<p class="text-gray-400">
+							Exploring mathematical concepts for curious minds.
+						</p>
+					</div>
+					<div class="flex space-x-4">
+						<a href="#" class="text-gray-400 hover:text-white transition">
+							<i class="fab fa-twitter text-2xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-white transition">
+							<i class="fab fa-facebook text-2xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-white transition">
+							<i class="fab fa-instagram text-2xl"></i>
+						</a>
+						<a href="#" class="text-gray-400 hover:text-white transition">
+							<i class="fab fa-linkedin text-2xl"></i>
+						</a>
+					</div>
+				</div>
+				<div
+					class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm"
+				>
+					<p>© 2023 Math Insights. All rights reserved.</p>
+					<p class="mt-2">
+						Created with <i class="fas fa-heart text-red-400"></i> for
+						mathematics enthusiasts
+					</p>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

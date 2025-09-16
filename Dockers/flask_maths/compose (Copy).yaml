@@ -1,0 +1,39 @@
+services:
+  mongo:
+    image: mongo
+    container_name: mongo_for_cours
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+
+  mathjax:
+    image: mathjax-server
+    ports:
+      - 7777:7777
+
+  web:
+    build: ./cours
+    image: cours_app
+    deploy:
+      replicas: 5
+    volumes:
+      - ./cours:/app/cours
+    depends_on:
+      - mongo
+      - mathjax
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app/cours
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+volumes:
+  mongo_data:

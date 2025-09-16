@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.full_name }} - Student Details{% endblock %}
+{% block page_title %}{{ student.full_name }}{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'academics:student_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Back to Students
+    </a>
+    <a href="{% url 'academics:student_update' student.student_id %}" class="btn btn-primary">
+        <i class="fas fa-edit me-1"></i>Edit Student
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Student Information -->
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-user me-2"></i>
+                    Student Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-user-graduate fa-2x text-white"></i>
+                    </div>
+                </div>
+                
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Student ID:</strong></td>
+                        <td><span class="badge bg-primary">{{ student.student_id }}</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Name:</strong></td>
+                        <td>{{ student.full_name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Class:</strong></td>
+                        <td><span class="badge bg-info">{{ student.current_class.name }}</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Age:</strong></td>
+                        <td>{{ student.age }} years</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gender:</strong></td>
+                        <td>
+                            {% if student.gender == 'M' %}
+                                <i class="fas fa-mars text-primary"></i> Male
+                            {% elif student.gender == 'F' %}
+                                <i class="fas fa-venus text-danger"></i> Female
+                            {% else %}
+                                <i class="fas fa-genderless text-secondary"></i> Other
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td><a href="mailto:{{ student.email }}">{{ student.email }}</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone:</strong></td>
+                        <td>{{ student.phone|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enrollment Date:</strong></td>
+                        <td>{{ student.enrollment_date|date:"M d, Y" }}</td>
+                    </tr>
+                </table>
+
+                <hr>
+
+                <h6><i class="fas fa-users me-2"></i>Parent Information</h6>
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Parent Name:</strong></td>
+                        <td>{{ student.parent_name|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parent Phone:</strong></td>
+                        <td>{{ student.parent_phone|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parent Email:</strong></td>
+                        <td>{{ student.parent_email|default:"Not provided" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Academic Performance -->
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Academic Performance
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Attendance Summary -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-primary">{{ attendance_percentage|floatformat:1 }}%</h3>
+                                <p class="mb-0">Attendance Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h3 class="text-success">{{ marks.count }}</h3>
+                                <p class="mb-0">Total Marks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subject Averages -->
+                {% if subject_averages %}
+                    <h6><i class="fas fa-book me-2"></i>Subject Averages</h6>
+                    <div class="row mb-4">
+                        {% for subject, average in subject_averages.items %}
+                        <div class="col-md-6 mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ subject }}</span>
+                                <span class="badge {% if average >= 90 %}bg-success{% elif average >= 80 %}bg-info{% elif average >= 70 %}bg-warning{% else %}bg-danger{% endif %}">
+                                    {{ average|floatformat:1 }}%
+                                </span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- Recent Marks -->
+                {% if marks %}
+                    <h6><i class="fas fa-star me-2"></i>Recent Marks</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Score</th>
+                                    <th>Grade</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mark in marks|slice:":5" %}
+                                <tr>
+                                    <td>{{ mark.class_subject.subject.name }}</td>
+                                    <td>
+                                        <span class="badge bg-secondary">{{ mark.mark_type|title }}</span>
+                                    </td>
+                                    <td>{{ mark.score }}/{{ mark.max_score }}</td>
+                                    <td>
+                                        <span class="badge {% if mark.grade in 'A+,A,A-' %}bg-success{% elif mark.grade in 'B+,B,B-' %}bg-warning{% elif mark.grade == 'F' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                            {{ mark.grade }}
+                                        </span>
+                                    </td>
+                                    <td>{{ mark.date_given|date:"M d" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No marks recorded yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Marks -->
+{% if marks %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    All Marks
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Type</th>
+                                <th>Score</th>
+                                <th>Percentage</th>
+                                <th>Grade</th>
+                                <th>Date</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for mark in marks %}
+                            <tr>
+                                <td>{{ mark.class_subject.subject.name }}</td>
+                                <td>
+                                    <span class="badge bg-secondary">{{ mark.mark_type|title }}</span>
+                                </td>
+                                <td>{{ mark.score }}/{{ mark.max_score }}</td>
+                                <td>{{ mark.percentage|floatformat:1 }}%</td>
+                                <td>
+                                    <span class="badge {% if mark.grade in 'A+,A,A-' %}bg-success{% elif mark.grade in 'B+,B,B-' %}bg-warning{% elif mark.grade == 'F' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                        {{ mark.grade }}
+                                    </span>
+                                </td>
+                                <td>{{ mark.date_given|date:"M d, Y" }}</td>
+                                <td>{{ mark.remarks|default:"-" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Attendance Records -->
+{% if attendance %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-check me-2"></i>
+                    Recent Attendance
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in attendance|slice:":10" %}
+                            <tr>
+                                <td>{{ record.date|date:"M d, Y" }}</td>
+                                <td>{{ record.class_subject.subject.name }}</td>
+                                <td>
+                                    <span class="badge {% if record.is_present %}bg-success{% else %}bg-danger{% endif %}">
+                                        {% if record.is_present %}Present{% else %}Absent{% endif %}
+                                    </span>
+                                </td>
+                                <td>{{ record.remarks|default:"-" }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %} 

@@ -1,0 +1,241 @@
+from urllib.parse import urljoin
+from Crypto.Cipher import AES
+import m3u8
+from pathlib import Path
+import os
+import requests
+import re
+from urllib.parse import unquote
+
+
+agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+OUTPUT_DIR = "/home/mohamed/Videos/Ts"
+CHANNELS_FILE = "/home/mohamed/Documents/Projects/PYTHON/BeinLive/chz.json"
+agent = "Mozilla/5.0 (X11; Linux x86_64; rv:137.0) Gecko/20100101 Firefox/137.0"
+
+referrer = "https://al-aqsanews.com/"
+token_url = f"{referrer}token.php"
+sess = requests.session()
+tk_infos = {}
+sess.headers = {
+    "user-agent": agent,
+    "Referer": referrer
+}
+
+
+def b_url(lastSegment):
+    data = {
+        "ch": lastSegment,
+        "key": "key001"
+    }
+    r = sess.post(token_url, data=data)
+    streamUrl = r.json()
+    streamUrl = unquote(re.sub(r"(.{1,2})", r"%\1", streamUrl["url"]))
+    return streamUrl
+
+
+# lastSegment = "bein1"
+# liveit(lastSegment)
+
+
+def decrypt_aes128(key, iv, encrypted_data):
+    # Remove '0x' prefix and convert to bytes
+    iv_bytes = bytes.fromhex(iv[2:])
+    cipher = AES.new(key, AES.MODE_CBC, iv_bytes)
+    decrypted_data = cipher.decrypt(encrypted_data)
+    return decrypted_data
+
+
+def download(uri):
+    sess.headers = {
+        "user-agent": agent,
+        "Referer": referrer
+    }
+    print("!!", referrer)
+    response = sess.get(uri, stream=True)
+    if response.status_code == 200:
+        return response.content
+    else:
+        raise Exception(
+            "Failed to download the video segment. Status code:", response.status_code
+        )
+
+
+def download(uri):
+    sess.headers = {
+        "user-agent": agent,
+        "Referer": referrer
+    }
+    print("!!", referrer)
+    response = sess.get(uri, stream=True)
+    if response.status_code == 200:
+        return response.content
+    else:
+        raise Exception(
+            "Failed to download the video segment. Status code:", response.status_code
+        )
+
+
+def concatize(*files, o: str | Path = "output", ex: str = "ts"):
+    filenames = "|".join(files[:])
+    cmd = f'ffmpeg -i "concat:{filenames}" -c copy "{o}.{ex}"'
+    os.system(cmd)
+    msg = f"* {o}.{ex} Created !"
+    print(f"{msg:<40}")
+
+
+def combine_vids(pt):
+    try:
+        p = Path(pt)
+    except:
+        return 0
+    nb = 0
+    for v_out in p.rglob("*"):
+        if v_out.is_file():
+            continue
+        fs = [
+            f"{f}"
+            for f in v_out.glob("*.part")
+        ]
+        if fs:
+            nb += 1
+            continue
+        fn = v_out.with_suffix(f"{v_out.suffix}.mp4")
+        if not fn.exists():
+            fs = [
+                f"{f}"
+                for f in v_out.glob("*.ts")
+            ]
+            fs = sorted(
+                fs,
+                key=lambda e: re.sub(
+                    r"[^0-9]",
+                    r"",
+                    e.rsplit(".", 1)[0]
+                ).zfill(20)
+            )
+            ph = 0
+            j = 1
+            NBR = 900
+            while len(fs) > NBR:
+                i = 0
+                ph += 1
+                while fs:
+                    i += 1
+                    concatize(*fs[:NBR], o=f"{v_out}_{j}_{i}")
+                    fs = fs[NBR:]
+                fs = [
+                    f"{v_out}_{j}_{n+1}.ts"
+                    for n in range(i)
+                ]
+                j += 1
+            concatize(*fs, o=v_out, ex="mp4")
+            if ph:
+                for f in fs:
+                    os.remove(f)
+                    msg = f"** Removing {f}"
+                    print(f"{msg:<40}")
+    msg = "> All is Done !"
+    print(f"{msg:<40}")
+    return nb
+
+
+class Stream:
+    def __init__(self, key, titre="Live"):
+        self.key = key
+        self.titre = titre if titre else f"Live-{self.key}"
+
+    def base_stream_url(self, force=False):
+        url = b_url(self.key)
+        return url
+
+    def online_stream(self):
+        url = self.base_stream_url()
+        cmd = f"""vlc --loop "{url}" --http-referrer="{referrer}" --http-user-agent="{agent}" --adaptive-use-access"""
+        os.system(cmd)
+
+    def download_stream(self):
+        DOC = f"{OUTPUT_DIR}/{self.titre}"
+        url = self.base_stream_url(True)
+        print("Base URL", url)
+        r = m3u8.load(url)
+        stream_info = r.data["segments"]
+        if len(stream_info) < 1:
+            url = self.base_stream_url(True)
+        if len(stream_info) < 1:
+            print("New Base URL", url)
+            print("Stream Vide ...")
+            return 0
+        stream_key = stream_info[0].get("key")
+        for element in stream_info:
+            uri = urljoin(url, element["uri"])
+            k = uri.split(self.key)[-1].rsplit(".", 1)[0]
+            ks = re.findall(r"[0-9]+", k)
+            k = "-".join(f"{int(e):04}" for e in ks)
+            output_file = f"{DOC}/{self.key}-{k}.ts"
+            if os.path.exists(output_file):
+                continue
+            os.makedirs(DOC, exist_ok=True)
+            uri = urljoin(url, uri)
+            try:
+                data = download(uri)
+                if stream_key:
+                    key_uri = stream_key["uri"]
+                    iv = stream_key["iv"]
+                    key = download(key_uri)
+                    data = decrypt_aes128(key, iv, data)
+                with open(output_file, "wb") as f:
+                    f.write(data)
+                    print(f"Downloaded stream saved to {output_file}")
+                    break
+            except:
+                continue
+
+    def live_stream(self, stop=None):
+        if not stop:
+            stop = "2026"
+        kayn = []
+        key = None
+        output_file = f"{OUTPUT_DIR}/{self.titre}.ts"
+        with open(output_file, "wb") as m3f:
+
+            while True:
+                url = self.base_stream_url()
+                rs = sess.get(url, stream=True)
+                r = m3u8.loads(rs.text)
+
+                stream_info = r.data["segments"]
+                if len(stream_info) < 1:
+                    url = self.base_stream_url(True)
+                    print("New Base URL", url)
+                    print("Stream Vide ...")
+                    continue
+                stream_key = stream_info[0].get("key")
+                for element in stream_info:
+                    uri = urljoin(url, element["uri"])
+                    k = element["uri"].rsplit(".", 1)[0]
+                    ks = re.findall(r"[0-9]+", k)
+                    k = "-".join(f"{int(e):04}" for e in ks)
+                    if k in kayn:
+                        continue
+                    uri = urljoin(url, uri)
+                    try:
+                        data = download(uri)
+                        if stream_key and not key:
+                            key_uri = stream_key["uri"]
+                            iv = stream_key["iv"]
+                            uri = urljoin(url, key_uri)
+                            key = download(uri)
+                        data = decrypt_aes128(key, iv, data)
+                        m3f.write(data)
+                        kayn.append(k)
+                        print(uri.split("/")[-1].split("?")[0])
+                    except:
+                        break
+
+
+if __name__ == "__main__":
+    # d = b_url("bein1")
+    # print(d)
+    print(sess.headers)

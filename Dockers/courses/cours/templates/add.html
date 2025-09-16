@@ -1,0 +1,78 @@
+{% extends "layout.html" %} {% block head %}
+<title>Add cour</title>
+{% endblock %} {% block content %}
+<header class="text-center">
+	<h2 class="text-2xl font-bold uppercase mb-1">Create a post</h2>
+	<p class="mb-4">Post a new article</p>
+	<p id="comment"></p>
+</header>
+
+<form class="p-6 mx-auto">
+	<div class="mb-6 grid grid-cols-1 gap-4">
+		<label for="code" class="block text-lg"> Code </label>
+		<input class="block p-2 border-2" id="code" value="{{code}}" />
+
+		<label for="nb" class="block text-lg"> Numero </label>
+		<input class="block p-2 border-2" id="nb" value="1" />
+
+		<label for="title" class="block text-lg"> title </label>
+		<input class="block p-2 border-2" id="title" placeholder="Include " />
+
+		<label for="chapter" class="block text-lg"> chapter </label>
+		<select class="block p-2 border-2" name="chapter" id="chapter">
+			<option value="==">Select a chapter ...</option>
+			{% for chapter_id,chapter in chapters %}
+			<option value="{{ chapter_id }}=={{ chapter }}">{{ chapter }}</option>
+			{% endfor %}
+		</select>
+
+		<label for="content" class="block text-lg mb-2"> Content </label>
+		<textarea
+			class="border border-gray-200 rounded p-2"
+			id="content"
+			rows="10"
+			placeholder="Include tasks, requirements, salary, etc"
+		>
+		</textarea>
+		<button
+			id="btn"
+			class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+		>
+			Create Post
+		</button>
+	</div>
+</form>
+<script>
+	document
+		.getElementById("btn")
+		.addEventListener("click", async function (event) {
+			event.preventDefault();
+			const title = document.getElementById("title").value;
+			const code = document.getElementById("code").value;
+			const chapterEl = document.getElementById("chapter").value.split("==");
+			const chapter_id = chapterEl[0];
+			const chapter = chapterEl[1];
+			const content = document.getElementById("content").value;
+			if (!title || !code || !content.trim()) {
+				alert("Please fill out all fields");
+				return;
+			}
+
+			const response = await fetch("/add", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ title, code, chapter_id, chapter, content }),
+			});
+			const todos = await response.json();
+
+			document.getElementById("comment").value = todos["nb"]; // Clear the input field
+			document.getElementById("title").value = ""; // Clear the input field
+			document.getElementById("code").value = ""; // Clear the input field
+			document.getElementById("chapter").value = ""; // Clear the input field
+			document.getElementById("content").value = ""; // Clear the input field
+		});
+</script>
+
+{% endblock %}

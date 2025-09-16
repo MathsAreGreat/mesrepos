@@ -1,0 +1,90 @@
+{% extends 'base/main.html' %} {% block title %}Profile - {{ user.username }}
+<!-- prettier-ignore -->
+{% endblock %} {% block content %}
+<div class="container py-5">
+	<div class="w-75 mx-auto">
+		<!-- Profile Header -->
+		<div class="card mb-5">
+			<div class="card-body text-center">
+				<div class="profile-avatar mb-4">
+					<div class="avatar-circle">
+						<span class="avatar-text">{{ user.username|first|upper }}</span>
+					</div>
+				</div>
+				<h1 class="display-4 mb-2">{{ user.username }}</h1>
+				<div class="mb-3">
+					<a
+						href="{% url 'users:edit_profile' %}"
+						class="btn btn-outline-primary btn-sm"
+						>Edit Profile</a
+					>
+				</div>
+				<p class="lead text-muted mb-4">
+					Member since {{ user.date_joined|date:"F Y" }}
+				</p>
+				<div class="row text-center g-3">
+					<div class="col-12 col-sm-4">
+						<div class="stat-card">
+							<h3 class="stat-number">{{ total_posts }}</h3>
+							<p class="stat-label">Posts</p>
+						</div>
+					</div>
+					<div class="col-12 col-sm-4">
+						<div class="stat-card">
+							<h3 class="stat-number">{{ user.date_joined|date:"d" }}</h3>
+							<p class="stat-label">Joined Day</p>
+						</div>
+					</div>
+					<div class="col-12 col-sm-4">
+						<div class="stat-card">
+							<h3 class="stat-number">{{ user.date_joined|date:"Y" }}</h3>
+							<p class="stat-label">Joined Year</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- User's Posts -->
+		<div class="mb-4">
+			<h2 class="section-title text-start">My Posts</h2>
+			{% if user_posts %}
+			<p class="lead text-muted">
+				<!-- prettier-ignore -->
+				You have published {{ total_posts }} post{{ total_posts|pluralize }}.
+                {% if is_paginated %} 
+                Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ total_posts }} posts.
+                {% endif %}
+			</p>
+			{% else %}
+			<p class="lead text-muted">You haven't published any posts yet.</p>
+			{% endif %}
+		</div>
+
+		{% if user_posts %}
+		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+			{% for post in user_posts %}
+			<div class="col">{% include 'base/post-card.html' %}</div>
+			{% endfor %}
+		</div>
+
+		<!-- Pagination -->
+		{% if is_paginated %} {% include "base/post-pagination.html" %}{% endif %}
+		{% else %}
+		<div class="text-center">
+			<div class="card">
+				<div class="card-body">
+					<h3>No posts yet!</h3>
+					<p class="text-muted mb-4">
+						Start sharing your thoughts with the community.
+					</p>
+					<a href="{% url 'create-post' %}" class="btn btn-primary"
+						>Create Your First Post</a
+					>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

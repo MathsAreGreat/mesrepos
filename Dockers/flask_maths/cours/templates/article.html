@@ -1,0 +1,114 @@
+{% extends "layout.html" %} {% block title %}{{ props.title }} - {{
+props.chapter }}{% endblock %} {% block content %}
+
+<header
+	class="w-full bg-gradient-to-r from-primary/20 to-cyan-500/20 py-16 shadow-xl"
+>
+	<div class="container mx-auto px-4">
+		<button
+			class="back-to-main mb-8 flex items-center text-gray-600 hover:text-primary"
+		>
+			<i class="ri-arrow-left-line mr-2"></i>
+			<a href="{{ url_for('index') }}">Back to All Courses</a>
+		</button>
+		<div class="flex flex-col md:flex-row items-start gap-12">
+			<div class="flex-1">
+				<h1 class="text-4xl font-bold text-gray-900 mb-4">
+					{{ props.chapter }}
+				</h1>
+
+				<div class="flex flex-wrap gap-4 mb-8">
+					<div
+						class="flex items-center bg-white rounded-full px-4 py-2 shadow-sm"
+					>
+						<i class="ri-time-line mr-2 text-primary"></i>
+						<span>{{ props.duration }} hours</span>
+					</div>
+					<div
+						class="flex items-center bg-white rounded-full px-4 py-2 shadow-sm"
+					>
+						<i class="ri-user-line mr-2 text-primary hover:text-white"></i>
+						<span>{{ props.level }}</span>
+					</div>
+					<div
+						class="flex items-center bg-violet-600 hover:bg-secondary/80 rounded-full px-4 py-2 shadow-sm"
+					>
+						<a href="{{ url_for('edit_form', nbr=props._id) }}">
+							<i class="ri-edit-line mr-2 text-white"></i>
+							<span class="text-white">Edit</span>
+						</a>
+					</div>
+					<div
+						class="flex items-center bg-red-500 hover:bg-red-500/80 rounded-full px-4 py-2 shadow-sm"
+					>
+						<a href="{{ url_for('del_form', nbr=props.nbr) }}">
+							<i class="ri-delete-bin-line mr-2 text-white"></i>
+							<span class="text-white">Delete</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="w-full md:w-1/3">
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<h3 class="text-lg font-semibold text-gray-900 mb-4">
+						Course Highlights
+					</h3>
+					<ul class="space-y-4">
+						{% for highlight in props.highlights.split(',') %}
+						<li class="flex items-start">
+							<div
+								class="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3"
+							>
+								📘
+							</div>
+							<span class="text-gray-700">
+								<a href="#{{ loop.index }}" class="smooth-scroll">
+									{{ highlight }}
+								</a>
+							</span>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<main class="container mx-auto px-4 py-12 bg-orange-100/30">
+	<div class="mb-16">
+		<h2 class="text-3xl font-bold text-gray-900 mb-8">Informations du cour</h2>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+			{% for info in props.infos %}
+			<div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+				<h3 class="text-xl font-semibold text-gray-900 mb-6">
+					{{ info.title }}
+				</h3>
+				<ul class="space-y-4">
+					{% for cour in info.cours %}
+					<li class="flex items-start">
+						<div
+							class="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-1 mr-3"
+						>
+							<i class="ri-{{ info.icon }}-line text-primary text-sm"></i>
+						</div>
+						<span class="text-gray-700">{{ cour }}</span>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="mx-0 md:mx-10 my-2 md:my-6">
+		<h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 text-center">
+			{{ props.title }}
+		</h2>
+		<div class="grid grid-cols-1">
+			<div class="rounded-xl shadow-sm p-6 border border-gray-200 bg-white">
+				{{ props.content | safe }}
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}

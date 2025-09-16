@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Students (CSV) - School Management System{% endblock %}
+{% block page_title %}Upload Students (CSV){% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-upload me-2"></i>
+                    Upload Students via CSV
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Instructions -->
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle me-2"></i>Instructions:</h6>
+                    <ul class="mb-0">
+                        <li>Upload a CSV file with the following headers: <code>first_name,last_name,email,student_id,current_class,gender,date_of_birth</code></li>
+                        <li>All users will be created with the default password: <code>changeme123</code></li>
+                        <li>Date format should be: <code>dd/mm/YYYY</code> or <code>YYYY-MM-DD</code></li>
+                        <li>Gender should be: <code>M</code> (Male), <code>F</code> (Female), or <code>O</code> (Other)</li>
+                        <li>Current class should match an existing class name</li>
+                    </ul>
+                </div>
+                
+                <!-- Sample CSV -->
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-file-csv me-2"></i>Sample CSV Format:</h6>
+                    <pre class="mb-0"><code>first_name,last_name,email,student_id,current_class,gender,date_of_birth
+Alice,Johnson,alice.johnson@school.com,S001,Grade 10,M,15/03/2008
+Bob,Williams,bob.williams@school.com,S002,Grade 11,M,22/07/2007
+Carol,Davis,carol.davis@school.com,S003,Grade 9,F,10/12/2009</code></pre>
+                </div>
+                
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.csv_file.id_for_label }}" class="form-label">
+                            CSV File <span class="text-danger">*</span>
+                        </label>
+                        {{ form.csv_file }}
+                        {% if form.csv_file.errors %}
+                            <div class="text-danger small">{{ form.csv_file.errors.0 }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.csv_file.help_text }}</div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'academics:student_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-2"></i>Upload Students
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

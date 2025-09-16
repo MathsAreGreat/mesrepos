@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}Mark Management - School Management System{% endblock %}
+{% block page_title %}Mark Management{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Add Mark Form -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-plus me-2"></i>
+                    Add New Mark
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="student" class="form-label">Student</label>
+                        <select class="form-select" id="student" name="student" required>
+                            <option value="">Select Student</option>
+                            {% for student in students %}
+                                <option value="{{ student.id }}">{{ student.full_name }} ({{ student.student_id }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="class_subject" class="form-label">Class & Subject</label>
+                        <select class="form-select" id="class_subject" name="class_subject" required>
+                            <option value="">Select Class & Subject</option>
+                            {% for class_subject in class_subjects %}
+                                <option value="{{ class_subject.id }}">
+                                    {{ class_subject.class_obj.name }} - {{ class_subject.subject.name }} ({{ class_subject.teacher.full_name }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="mark_type" class="form-label">Mark Type</label>
+                        <select class="form-select" id="mark_type" name="mark_type" required>
+                            <option value="">Select Mark Type</option>
+                            {% for value, label in mark_types %}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="score" class="form-label">Score</label>
+                                <input type="number" class="form-control" id="score" name="score" 
+                                       min="0" max="100" step="0.01" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="max_score" class="form-label">Maximum Score</label>
+                                <input type="number" class="form-control" id="max_score" name="max_score" 
+                                       value="100" min="1" step="0.01" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="remarks" class="form-label">Remarks (Optional)</label>
+                        <textarea class="form-control" id="remarks" name="remarks" rows="3" 
+                                  placeholder="Additional comments about the mark..."></textarea>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Add Mark
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Marks -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>
+                    Recent Marks
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if recent_marks %}
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Score</th>
+                                    <th>Grade</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mark in recent_marks %}
+                                <tr>
+                                    <td>
+                                        <small>{{ mark.student.full_name }}</small>
+                                    </td>
+                                    <td>
+                                        <small>{{ mark.class_subject.subject.name }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">{{ mark.mark_type|title }}</span>
+                                    </td>
+                                    <td>{{ mark.score }}/{{ mark.max_score }}</td>
+                                    <td>
+                                        <span class="badge {% if mark.grade in 'A+,A,A-' %}bg-success{% elif mark.grade in 'B+,B,B-' %}bg-warning{% elif mark.grade == 'F' %}bg-danger{% else %}bg-secondary{% endif %}">
+                                            {{ mark.grade }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <small>{{ mark.date_given|date:"M d" }}</small>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-chart-line fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No marks recorded</h6>
+                        <p class="text-muted">Start adding marks using the form on the left.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Stats -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Mark Statistics
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ recent_marks|length }}</h4>
+                                <p class="mb-0">Total Marks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ students|length }}</h4>
+                                <p class="mb-0">Students</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ class_subjects|length }}</h4>
+                                <p class="mb-0">Class Subjects</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ mark_types|length }}</h4>
+                                <p class="mb-0">Mark Types</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

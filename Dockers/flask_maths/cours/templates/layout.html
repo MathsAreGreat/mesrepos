@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %}My Site{% endblock %}</title>
+		<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+		/>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/style.css') }}"
+		/>
+		<link
+			href="{{ url_for('static', filename='css/custom.css') }}"
+			rel="stylesheet"
+		/>
+
+		<link
+			rel="icon"
+			type="image/png"
+			href="{{ url_for('static', filename='imgs/favicon.png') }}"
+		/>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: { primary: "#4F46E5", secondary: "#8B5CF6" },
+						borderRadius: {
+							none: "0px",
+							sm: "4px",
+							DEFAULT: "8px",
+							md: "12px",
+							lg: "16px",
+							xl: "20px",
+							"2xl": "24px",
+							"3xl": "32px",
+							full: "9999px",
+							button: "8px",
+						},
+					},
+				},
+			};
+		</script>
+		<ins style="display: none">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}{\textcolor}$ $\newcommand {\m}{\mathscr}$ $\newcommand
+			{\b}{\mathbb}$$\newcommand {\pr}[1]{\left(#1\right)}$ $\newcommand
+			{\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+	</head>
+	<body class="bg-white min-h-screen">
+		{% block content %}{% endblock %}
+
+		<footer class="bg-gray-200 border-t border-gray-200 pt-12 pb-8 shadow-xl">
+			<div class="container mx-auto px-4">
+				<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+					<div>
+						<h3 class="font-['Pacifico'] text-2xl text-gray-900 mb-4">logo</h3>
+						<p class="text-gray-600 mb-4">
+							Empowering mathematical minds since 2015. Our courses are designed
+							by expert educators and practicing mathematicians.
+						</p>
+						<div class="flex space-x-4">
+							<a
+								href="#"
+								class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white"
+							>
+								<i class="ri-facebook-fill"></i>
+							</a>
+							<a
+								href="#"
+								class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white"
+							>
+								<i class="ri-twitter-x-fill"></i>
+							</a>
+							<a
+								href="#"
+								class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white"
+							>
+								<i class="ri-instagram-fill"></i>
+							</a>
+							<a
+								href="#"
+								class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white"
+							>
+								<i class="ri-youtube-fill"></i>
+							</a>
+						</div>
+					</div>
+					<div>
+						<h4 class="text-lg font-semibold text-gray-900 mb-4">Courses</h4>
+						<ul class="space-y-2">
+							{% for key, titre in myitems %} {% if key != "" %}
+							<li>
+								<a
+									href="{{ url_for('course', key=key) }}"
+									class="text-gray-600 hover:text-primary"
+									>{{ titre }}</a
+								>
+							</li>
+							{% endif %} {% endfor %}
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-lg font-semibold text-gray-900 mb-4">Resources</h4>
+						<ul class="space-y-2">
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary"
+									>Learning Paths</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary"
+									>Free Practice Problems</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary"
+									>Formula Sheets</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary"
+									>Math Blog</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary"
+									>Student Community</a
+								>
+							</li>
+							<li>
+								<a href="#" class="text-gray-600 hover:text-primary">FAQ</a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<h4 class="text-lg font-semibold text-gray-900 mb-4">Subscribe</h4>
+						<p class="text-gray-600 mb-4">
+							Get updates on new courses and mathematical insights.
+						</p>
+						<form class="mb-4">
+							<div class="flex">
+								<input
+									type="email"
+									placeholder="Your email address"
+									class="w-full px-4 py-2 border border-gray-300 rounded-l-button focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+								/>
+								<button
+									type="submit"
+									class="bg-primary text-white px-4 py-2 rounded-r-button whitespace-nowrap"
+								>
+									Subscribe
+								</button>
+							</div>
+						</form>
+						<p class="text-sm text-gray-500">
+							By subscribing, you agree to our Privacy Policy and Terms of
+							Service.
+						</p>
+					</div>
+				</div>
+				<div
+					class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center"
+				>
+					<p class="text-gray-600 mb-4 md:mb-0">
+						© 2025 Mathematics Learning Platform. All rights reserved.
+					</p>
+					<div class="flex space-x-6">
+						<a href="#" class="text-gray-600 hover:text-primary text-sm"
+							>Privacy Policy</a
+						>
+						<a href="#" class="text-gray-600 hover:text-primary text-sm"
+							>Terms of Service</a
+						>
+						<a href="#" class="text-gray-600 hover:text-primary text-sm"
+							>Cookie Policy</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/check-for-tex.js') }}"></script>
+	</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Théorème des Restes Chinois - Histoire et Problèmes</title>
+		<!-- Bootstrap 5 Dark Theme CDN -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			body {
+				background-color: #181a1b;
+				color: #f8f9fa;
+			}
+			.card {
+				background-color: #23272b;
+				border: none;
+				box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+				padding: 1.2rem 1.2rem 1rem 1.2rem;
+			}
+			a,
+			a:visited {
+				color: #0dcaf0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container py-3">
+			<div class="row justify-content-center">
+				<div class="col-lg-10">
+					<h1 class="card-title mb-4" style="color: #ffc107">
+						Théorème des Restes Chinois
+					</h1>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Origine et Histoire
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								La forme originale du théorème apparait sous forme de problème
+								dans le livre de Sun Zi, le Sunzi suanjing (en), datant du IIIe
+								siècle.
+							</p>
+							<p>
+								Il est repris par le mathématicien chinois Qin Jiushao dans son
+								ouvrage le Shùshū Jiǔzhāng (« Traité mathématique en neuf
+								chapitres ») publié en.
+							</p>
+							<p>
+								Le résultat concerne les systèmes de congruences (voir
+								arithmétique modulaire).
+							</p>
+						</div>
+					</section>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Le Problème Classique
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>Soient des objets en nombre inconnu.</p>
+							<p>Si on les range par il en reste.</p>
+							<p>
+								Si on les range par, il en reste et si on les range par, il en
+								reste.
+							</p>
+							<p>Combien a-t-on d'objets ?</p>
+							<p>
+								Cette énigme est parfois associée au général Han Xin (en)
+								comptant son armée.
+							</p>
+						</div>
+					</section>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Méthode de Résolution
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								La résolution proposée par Sun Zi pour ce problème est la
+								suivante : Multiplie le reste de la division par, c’est-à-dire,
+								par, ajoute-lui le produit du reste de la division par,
+								c’est-à-dire, avec puis ajoute le produit du reste de la
+								division par, c'est-à-dire par.
+							</p>
+							<p>Tant que le nombre est plus grand que, retire.</p>
+							<p>
+								Mais la solution n'explique qu'imparfaitement la méthode
+								utilisée.
+							</p>
+							<p>
+								On peut cependant remarquer que : 70 a pour reste dans la
+								division par et pour reste dans les divisions par et.
+							</p>
+							<p>
+								21 a pour reste dans la division par et pour reste dans les
+								divisions par et.
+							</p>
+							<p>
+								15 a pour reste dans la division par et pour reste dans les
+								divisions par et.
+							</p>
+							<p>
+								Le nombre a bien alors pour restes respectifs, et dans les
+								divisions par, et.
+							</p>
+							<p>
+								Enfin, comme a pour reste dans les trois types de division, on
+								peut l’ôter ou l'ajouter autant de fois que l'on veut sans
+								changer les valeurs des restes.
+							</p>
+							<p>La plus petite valeur pour le nombre d'objets est alors de.</p>
+						</div>
+					</section>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Présence dans d'autres cultures
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								On retrouve ce problème presque à l'identique en dans le Liber
+								Abbaci de Fibonacci dans le chapitre XII qui concerne les
+								problèmes et énigmes où l'on trouve également le problème des
+								lapins de la suite de Fibonacci.
+							</p>
+							<p>
+								Le problème avait aussi été étudié par Ibn al-Haytham (Alhazen)
+								– voir l'article Mathématiques arabes – dont Fibonacci a pu lire
+								les œuvres.
+							</p>
+							<p>
+								Euler s'est également intéressé à cette question, ainsi que
+								Gauss.
+							</p>
+						</div>
+					</section>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Applications et Motivations
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								Selon Ulrich Libbrecht (de), la motivation de ce type de calcul
+								chez les Chinois serait l'astronomie.
+							</p>
+							<p>
+								On peut en effet penser que les Chinois, férus de calculs
+								astronomiques, puissent être intéressés par des concordances de
+								calendrier et qu'ils aient été amenés très tôt à s'intéresser à
+								des questions du type : Dans combien de jours la pleine lune
+								tombera-t-elle au solstice d'hiver ?
+							</p>
+							<p>
+								Si la question se pose alors qu'il reste jours avant le solstice
+								d'hiver et jours avant la pleine lune, la question se traduit
+								par : Existe-t-il un entier x tel que le reste de la division de
+								x par donne et le reste de la division de x par donne ?
+							</p>
+							<p>
+								Mais selon Daumas et al, il s'agirait plus probablement de
+								problèmes associés à des comptages par paquets, peut-être
+								d'origine divinatoire.
+							</p>
+						</div>
+					</section>
+					<section class="mb-2">
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Exemple des Pirates
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								Enfin, il serait dommage de ne pas présenter ce problème
+								concernant des pirates et un trésor, très fréquemment cité pour
+								illustrer le théorème des restes chinois : Une bande de pirates
+								possède un trésor constitué de pièces d'or d'égale valeur.
+							</p>
+							<p>
+								Ils projettent de se les partager également, et de donner le
+								reste au cuisinier chinois.
+							</p>
+							<p>Celui-ci recevrait alors pièces.</p>
+							<p>
+								Mais les pirates se querellent, et six d'entre eux sont tués.
+							</p>
+							<p>Un nouveau partage donnerait au cuisinier pièces.</p>
+							<p>
+								Dans un naufrage ultérieur, seuls le trésor, six pirates et le
+								cuisinier sont sauvés, et le partage donnerait alors pièces d'or
+								à ce dernier.
+							</p>
+							<p>
+								Quelle est la fortune minimale que peut espérer le cuisinier
+								s'il décide d'empoisonner le reste des pirates ?
+							</p>
+							<p>La réponse est.</p>
+							<p>
+								Les nombres, et étant premiers entre eux deux à deux, les
+								solutions sont distantes d'un multiple de ; par ailleurs vérifie
+								bien l'énoncé :.
+							</p>
+							<p>
+								Il s'ensuit que est bien le plus petit des nombres possibles.
+							</p>
+						</div>
+					</section>
+					<section>
+						<h2 style="color: #0dcaf0; font-size: 1.3rem">
+							Formulation Mathématique
+						</h2>
+						<div
+							class="card-text"
+							style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+						>
+							<p>
+								L'arithmétique modulaire a rendu ce type de problème plus facile
+								à résoudre.
+							</p>
+							<p>
+								Soient des entiers deux à deux premiers entre eux, c'est-à-dire
+								que :.
+							</p>
+							<p>
+								Alors pour tous entiers, il existe un entier, unique modulo, tel
+								que : Une solution peut être trouvée comme suit.
+							</p>
+							<p>Pour chaque, les entiers et sont premiers entre eux.</p>
+							<p>
+								D'après le théorème de Bachet-Bézout on peut calculer l'inverse
+								de modulo.
+							</p>
+							<p>
+								Pour cela, on peut utiliser l'algorithme d'Euclide étendu et
+								obtenir des entiers et tels que.
+							</p>
+							<p>Si on pose, alors nous avons et pour.</p>
+							<p>
+								Une solution particulière de ce système de congruences est par
+								conséquent :, et les autres solutions sont les entiers congrus à
+								modulo le produit.
+							</p>
+							<p>
+								L'exemple de Sun Zi, présenté plus haut dans la section
+								histoire, se réduit à : on obtient alors : et : Donc : une
+								solution pour est alors et les solutions sont tous les entiers
+								congrus à modulo, c'est-à-dire à modulo.
+							</p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

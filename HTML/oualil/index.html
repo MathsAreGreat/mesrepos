@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Student Blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/base/css/bootstrap.min.css" />
+
+		<link rel="stylesheet" href="/static/base/css/all.min.css" />
+		<link rel="stylesheet" href="/static/base/css/styles.css" />
+
+		<ins style="display: none">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}{\textcolor}$ $\newcommand {\m}{\mathscr}$ $\newcommand
+			{\b}{\mathbb}$$\newcommand {\pr}[1]{\left(#1\right)}$ $\newcommand
+			{\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+		<script>
+			window.MathJax = {
+				tex: {
+					inlineMath: [
+						["$", "$"],
+						["\\(", "\\)"],
+					],
+					displayMath: [
+						["$$", "$$"],
+						["\\[", "\\]"],
+					],
+					processEscapes: true,
+				},
+				options: {
+					skipHtmlTags: [
+						"script",
+						"noscript",
+						"style",
+						"textarea",
+						"pre",
+						"code",
+					],
+				},
+				svg: { fontCache: "global" },
+			};
+		</script>
+		<script src="/static/base/mathjax/es5/tex-mml-chtml.js" async></script>
+	</head>
+
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+			<div class="container">
+				<a class="navbar-brand d-flex align-items-center" href="/">
+					<div class="brand-icon me-2">📚</div>
+					<span class="brand-text">StudentBlog</span>
+				</a>
+
+				<div class="navbar-nav ms-auto">
+					<a class="btn btn-warning me-2 px-3 navbar-btn" href="/create-post/">
+						<i class="fas fa-plus me-1"></i>
+						New Post
+					</a>
+
+					<a
+						class="btn btn-info me-2 px-3 navbar-btn"
+						href="/admin/"
+						target="_blank"
+					>
+						<i class="fas fa-cog me-1"></i>
+						Dashboard
+					</a>
+
+					<a
+						class="btn btn-success me-2 px-3 navbar-btn"
+						href="/users/profile/"
+					>
+						<i class="fas fa-user me-1"></i>
+						mohamed
+					</a>
+					<a class="btn btn-danger px-3 navbar-btn" href="/users/logout/">
+						<i class="fas fa-sign-out-alt me-1"></i>
+						Logout
+					</a>
+				</div>
+			</div>
+		</nav>
+
+		<style>
+			/* Custom Navbar Styling */
+			.custom-navbar {
+				background: linear-gradient(
+					135deg,
+					#0f0f23 0%,
+					#1a1a2e 25%,
+					#16213e 50%,
+					#0f3460 75%,
+					#533483 100%
+				) !important;
+				backdrop-filter: blur(20px);
+				border-bottom: 4px solid;
+				border-image: linear-gradient(
+						90deg,
+						#00d4ff,
+						#ff6b6b,
+						#4ecdc4,
+						#f9ca24,
+						#00d4ff
+					)
+					1;
+				box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+					inset 0 1px 0 rgba(255, 255, 255, 0.1),
+					0 0 20px rgba(0, 212, 255, 0.3);
+				padding: 1.2rem 0;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				animation: navbarGlow 3s ease-in-out infinite alternate;
+			}
+
+			@keyframes navbarGlow {
+				0% {
+					box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+						inset 0 1px 0 rgba(255, 255, 255, 0.1),
+						0 0 20px rgba(0, 212, 255, 0.3);
+				}
+				100% {
+					box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+						inset 0 1px 0 rgba(255, 255, 255, 0.1),
+						0 0 30px rgba(0, 212, 255, 0.6);
+				}
+			}
+
+			/* Override any Bootstrap default navbar colors */
+			.navbar-dark {
+				background-color: transparent !important;
+			}
+
+			.navbar {
+				background-color: transparent !important;
+			}
+
+			/* Brand Styling */
+			.navbar-brand {
+				text-decoration: none;
+				color: #ffffff !important;
+				transition: all 0.4s ease;
+				position: relative;
+			}
+
+			.navbar-brand:hover {
+				transform: scale(1.08) rotate(1deg);
+				filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.6));
+			}
+
+			.brand-icon {
+				font-size: 2.2rem;
+				background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4, #f9ca24);
+				background-size: 300% 300%;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				filter: drop-shadow(0 2px 8px rgba(0, 212, 255, 0.5));
+				animation: gradientShift 4s ease-in-out infinite;
+			}
+
+			@keyframes gradientShift {
+				0%,
+				100% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+			}
+
+			.brand-text {
+				font-size: 1.8rem;
+				font-weight: 800;
+				background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4, #f9ca24);
+				background-size: 300% 300%;
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				letter-spacing: 2px;
+				animation: gradientShift 4s ease-in-out infinite reverse;
+				text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+			}
+
+			/* Navbar Buttons */
+			.navbar-btn {
+				font-weight: 600;
+				text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+				border-radius: 25px;
+				padding: 0.6rem 1.5rem;
+				transition: all 0.3s ease;
+				border: 2px solid transparent;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.navbar-btn::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(255, 255, 255, 0.2),
+					transparent
+				);
+				transition: left 0.5s;
+			}
+
+			.navbar-btn:hover::before {
+				left: 100%;
+			}
+
+			.navbar-btn:hover {
+				transform: translateY(-3px) scale(1.05);
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+				z-index: 2;
+			}
+
+			/* Button Color Schemes */
+			.btn-success {
+				background: linear-gradient(
+					45deg,
+					#00ff88,
+					#00d4aa,
+					#00b894
+				) !important;
+				border: none !important;
+				color: #000 !important;
+				font-weight: 700 !important;
+				text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+			}
+
+			.btn-success:hover {
+				background: linear-gradient(
+					45deg,
+					#00d4aa,
+					#00b894,
+					#00a085
+				) !important;
+				box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			.btn-danger {
+				background: linear-gradient(
+					45deg,
+					#ff4757,
+					#ff3838,
+					#ff6348
+				) !important;
+				border: none !important;
+				color: white !important;
+				font-weight: 700 !important;
+			}
+
+			.btn-danger:hover {
+				background: linear-gradient(
+					45deg,
+					#ff3838,
+					#ff6348,
+					#ff5252
+				) !important;
+				box-shadow: 0 8px 25px rgba(255, 71, 87, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			.btn-warning {
+				background: linear-gradient(
+					45deg,
+					#ffa502,
+					#ffb142,
+					#ffc048
+				) !important;
+				border: none !important;
+				color: #000 !important;
+				font-weight: 700 !important;
+				text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+			}
+
+			.btn-warning:hover {
+				background: linear-gradient(
+					45deg,
+					#ffb142,
+					#ffc048,
+					#ffd32a
+				) !important;
+				box-shadow: 0 8px 25px rgba(255, 165, 2, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			.btn-info {
+				background: linear-gradient(
+					45deg,
+					#3742fa,
+					#2f3542,
+					#5352ed
+				) !important;
+				border: none !important;
+				color: white !important;
+				font-weight: 700 !important;
+			}
+
+			.btn-info:hover {
+				background: linear-gradient(
+					45deg,
+					#2f3542,
+					#5352ed,
+					#3742fa
+				) !important;
+				box-shadow: 0 8px 25px rgba(55, 66, 250, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			.btn-primary {
+				background: linear-gradient(
+					45deg,
+					#00d4ff,
+					#0099cc,
+					#00b8d9
+				) !important;
+				border: none !important;
+				color: white !important;
+				font-weight: 700 !important;
+			}
+
+			.btn-primary:hover {
+				background: linear-gradient(
+					45deg,
+					#0099cc,
+					#00b8d9,
+					#00d4ff
+				) !important;
+				box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			.btn-outline-light {
+				background: transparent !important;
+				border: 2px solid #00d4ff !important;
+				color: #00d4ff !important;
+				font-weight: 700 !important;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.btn-outline-light::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(0, 212, 255, 0.2),
+					transparent
+				);
+				transition: left 0.5s;
+			}
+
+			.btn-outline-light:hover::before {
+				left: 100%;
+			}
+
+			.btn-outline-light:hover {
+				background: linear-gradient(45deg, #00d4ff, #0099cc) !important;
+				color: #000 !important;
+				box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6) !important;
+				transform: translateY(-3px) scale(1.05) !important;
+			}
+
+			/* Responsive Design */
+			@media (max-width: 768px) {
+				.navbar-nav {
+					margin-top: 1rem;
+					gap: 0.75rem;
+				}
+
+				.navbar-nav .btn {
+					margin: 0.25rem 0;
+					width: 100%;
+					justify-content: center;
+				}
+
+				.brand-text {
+					font-size: 1.3rem;
+				}
+
+				.brand-icon {
+					font-size: 1.6rem;
+				}
+			}
+
+			/* Ensure navbar styles take precedence */
+			.custom-navbar .navbar-btn {
+				background: inherit !important;
+				border: inherit !important;
+				color: inherit !important;
+				box-shadow: inherit !important;
+			}
+
+			.custom-navbar .navbar-btn:hover {
+				background: inherit !important;
+				border: inherit !important;
+				color: inherit !important;
+				transform: inherit !important;
+				box-shadow: inherit !important;
+			}
+		</style>
+
+		<!-- Main Content -->
+		<main class="main-content">
+			<div class="container py-5">
+				<div class="row justify-content-center">
+					<div class="col-lg-8">
+						<div
+							class="card post-detail-card bg-dark text-light shadow-lg border-0"
+						>
+							<div class="post-detail-accent"></div>
+							<div class="card-body px-3 px-md-4 px-lg-5">
+								<!-- Title Section - Independent -->
+								<div class="mb-3">
+									<div class="d-flex align-items-center justify-content-center">
+										<i class="fas fa-book-open text-info me-2 fs-3"></i>
+										<h1 class="card-title mb-0 fw-bold text-warning">
+											Relations Métriques
+										</h1>
+									</div>
+								</div>
+
+								<!-- Action Buttons Section -->
+								<div class="mb-3">
+									<div
+										class="d-flex gap-5 justify-content-between align-items-center"
+									>
+										<a href="/" class="btn btn-outline-light flex-fill">
+											<i class="fas fa-arrow-left me-1"></i>All Posts
+										</a>
+										<a
+											href="/chapter/6"
+											class="btn btn-outline-info flex-fill text-decoration-none"
+										>
+											<i class="fas fa-layer-group me-1"></i>Démonstrations
+										</a>
+
+										<a
+											href="/update-post/6"
+											class="btn btn-outline-info flex-fill"
+										>
+											<i class="fas fa-edit me-1"></i>Edit
+										</a>
+									</div>
+								</div>
+
+								<p class="lead fst-italic text-secondary mb-4">
+									Cet article s&#x27;interesse aux démonstrations des relations
+									métriques [Partie du théorème de Pythagore]
+								</p>
+
+								<div
+									class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 small text-light-50"
+								>
+									<div class="mb-2 mb-md-0">
+										<i class="fas fa-user-circle me-1"></i>
+										<span>@mohamed</span>
+									</div>
+									<div class="d-flex flex-column flex-sm-row gap-2 gap-sm-3">
+										<div>
+											<i class="fas fa-calendar-plus me-1 text-info"></i>
+											<span>Created: Jul 29, 2025 17:50</span>
+										</div>
+										<div>
+											<i class="fas fa-edit me-1 text-warning"></i>
+											<span>Updated: Aug 04, 2025 03:44</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="post-content fs-5 lh-lg mt-4">
+							<section class="mb-5">
+								<h3 class="text-center text-warning mb-4 fw-bold section-title">
+									<i class="fas fa-lightbulb text-warning fs-1"></i>
+									Introduction
+								</h3>
+								<div
+									class="bg-gradient-dark p-4 rounded-3 shadow-lg border border-secondary"
+								>
+									<div class="step-container mt-3">
+										<div class="step success">
+											<div class="step-title">
+												<i class="fas fa-check-circle"></i> Énonce du théorème :
+											</div>
+											<p class="method-text">
+												En géométrie euclidienne, la formule de Héron, portant
+												le nom de Héron d'Alexandrie, permet de calculer l'aire
+												$S$ d'un triangle quelconque en ne connaissant que les
+												longueurs $a$, $b$ et $c$ de ses trois côtés : La
+												formule était déjà connue d'Archimède.
+											</p>
+											<div class="math-block">
+												$ \begin{cases} S=\sqrt{p(p-a)(p-b)(p-c)} \\\\
+												p=\dfrac{a+b+c}{2}\end{cases}$
+											</div>
+										</div>
+										<div class="step danger">
+											<div class="step-title">
+												<i class="fas fa-pen-clip"></i> Remarques :
+											</div>
+											<p class="method-text">
+												<i
+													class="fas fa-arrow-alt-circle-right text-danger"
+												></i>
+												Héron d'Alexandrie énonce et démontre son théorème dans
+												son traité Les Métriques.
+											</p>
+											<p class="method-text">
+												<i
+													class="fas fa-arrow-alt-circle-right text-danger"
+												></i>
+												Sa démonstration s'appuie sur les propriétés du cercle
+												inscrit dans un triangle et sur l'exploitation des
+												rapports de longueurs dans des triangles semblables .
+											</p>
+											<p class="method-text">
+												<i
+													class="fas fa-arrow-alt-circle-right text-danger"
+												></i>
+												Les propriétés trigonométriques permettent une
+												démonstration plus courte de cette égalité.
+											</p>
+											<p class="method-text">
+												<i
+													class="fas fa-arrow-alt-circle-right text-danger"
+												></i>
+												Ainsi, la formule de Héron peut se déduire de manière
+												algébrique de la loi des cosinus (Théorème d'Al-Kashi).
+											</p>
+										</div>
+										<div class="bg-gradient-primary p-4 rounded-3 text-center">
+											<h4 class="text-white mb-3 fw-bold">
+												🎯 Objectif : Démontrer avec les méthodes suivantes
+											</h4>
+											<div class="row g-2">
+												<div class="col-md-6">
+													<a href="#1">
+														<div class="bg-dark bg-opacity-75 p-3 rounded-2">
+															<p class="text-warning mb-1 text-start ps-lg-2">
+																<strong>R1 :</strong> Loi des cosinus
+															</p>
+														</div>
+													</a>
+												</div>
+												<div class="col-md-6">
+													<a href="#2">
+														<div class="bg-dark bg-opacity-75 p-3 rounded-2">
+															<p class="text-warning mb-1 text-start ps-lg-2">
+																<strong>R2 :</strong> Théorème de Pythagore
+															</p>
+														</div>
+													</a>
+												</div>
+												<div class="col-md-6">
+													<a href="#3">
+														<div class="bg-dark bg-opacity-75 p-3 rounded-2">
+															<p class="text-warning mb-1 text-start ps-lg-2">
+																<strong>R3 :</strong> loi des cotangentes
+															</p>
+														</div>
+													</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<section class="mb-5">
+								<h3 class="text-center text-warning mb-4 fw-bold section-title">
+									<i class="fas fa-calculator me-2"></i> Démonstrations
+									Détaillées
+								</h3>
+								<div id="1" class="demonstration-card mb-4">
+									<div class="card-header-demo">
+										<div class="d-flex align-items-center">
+											<div class="demo-number">1</div>
+											<div>
+												<h4 class="demo-title">🔎 Première méthode :</h4>
+												<p class="demo-subtitle">Loi des cosinus</p>
+											</div>
+										</div>
+									</div>
+									<div class="card-body-demo">
+										<div class="step success">
+											<div class="step-title">
+												<i class="fas fa-check-circle"></i> Figure :
+											</div>
+											<center>
+												<img
+													src="/static/base/imgs/Triangle_with_notations.png"
+													alt=""
+													width="99%"
+													class="bg-white"
+												/>
+											</center>
+											<p class="step-content mt-5">
+												La loi des cosinus s'écrit :
+											</p>
+											<div class="math-block">
+												$\quad 2ab\cos \gamma =a^2+b^2-c^2$
+											</div>
+										</div>
+										<div class="step mt-5">
+											<div class="step-title">
+												<i class="fas fa-check-to-slot"></i> Démonstration :
+											</div>
+											<p class="step-content">
+												jointe à la formule classique de l'aire du triangle
+												donnée par cet angle et les côtés adjacents :
+											</p>
+											<div class="math-block">
+												$ \begin{aligned} S&=\dfrac{ab}{2}\sin\gamma \\
+												&=\dfrac{2ab}{4}\sqrt{1-\cos ^2\gamma }\\
+												&=\dfrac{1}{4}\sqrt{2ab(1+\cos\gamma)2ab(1-\cos
+												\gamma)}\\ &=\dfrac14
+												\sqrt{(2ab+a^2+b^2-c^2)(2ab-a^2-b^2+c^2)}\\ &=\dfrac14
+												\sqrt{\pbig{(a+b)^2-c^2}\pbig{c^2-(a-b)^2}} \\
+												&=\dfrac14 \sqrt{(a+b+c)(a+b-c)(c+a-b)(c-a+b)}
+												\end{aligned} $
+											</div>
+											<p class="step-content">
+												Puis, en notant, $ p = \dfrac{a + b + c}2$ le
+												demi-périmètre, on conclut :
+											</p>
+											<div class="math-block">
+												$ \begin{aligned} S&=
+												\dfrac14\sqrt{2p(2p-2c)(2p-2b)(2p-2a)} \\ &=
+												\dfrac14\sqrt{16p(p-c)(p-b)(p-a)} \\ &=
+												\sqrt{p(p-c)(p-b)(p-a)} \end{aligned}$
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="2" class="demonstration-card mb-4">
+									<div class="card-header-demo">
+										<div class="d-flex align-items-center">
+											<div class="demo-number">2</div>
+											<div>
+												<h4 class="demo-title">🔎 Deuxième méthode :</h4>
+												<p class="demo-subtitle">Théorème de Pythagore</p>
+											</div>
+										</div>
+									</div>
+									<div class="card-body-demo">
+										<div class="step success">
+											<div class="step-title">
+												<i class="fas fa-check-circle"></i> Figure :
+											</div>
+											<center>
+												<img
+													src="/static/base/imgs/Triangle_with_notations_3.png"
+													alt=""
+													width="99%"
+													class="bg-white"
+												/>
+											</center>
+										</div>
+										<div class="step mt-5">
+											<div class="step-title">
+												<i class="fas fa-check-to-slot"></i> Démonstration :
+											</div>
+											<p class="step-content">
+												D'après le théorème de Pythagore :
+											</p>
+											<div class="math-block">
+												$ \begin{cases} b^2=h^2+d^2 \\ a^2=h^2+(c-d)^2
+												\end{cases} $
+											</div>
+											<p class="step-content">Alors :</p>
+											<div class="math-block">
+												$a^2-b^2=c^2-2cd \so d = \dfrac{-a^2+b^2+c^2}{2c}$
+											</div>
+											<p class="step-content">D'où :</p>
+											<div class="math-block">
+												$ \begin{aligned} h^2&=b^2-d^2 \\
+												&=b^2-\pbig{\dfrac{-a^2+b^2+c^2}{2c}}^2 \\\\
+												&=\dfrac{(2bc-a^2+b^2+c^2)(2bc+a^2-b^2-c^2)}{4c^2}\\\\
+												&=\dfrac{\pbig{(b+c)^2-a^2}\pbig{a^2-(b-c)^2}}{4c^2}\\\\
+												&=\dfrac{(a+b+c)(b+c-a)(a-b+c)(a+b-c)}{4c^2} \\\\
+												&=\dfrac{2p \times 2(p-a) \times 2(p-b) \times
+												2(p-c)}{4c^2} \\\\ &=\dfrac{16s(p-a)(p-b)(p-c)}{4c^2}
+												\\\\ &=\dfrac{4p(p-a)(p-b)(p-c)}{c^2} \end{aligned} $
+											</div>
+											<p class="step-content">Donc :</p>
+											<div class="math-block">
+												$ \begin{aligned} A &= \dfrac{c \times h}2 \\ &=
+												\dfrac12 c \sqrt{\dfrac{4p(p-a)(p-b)(p-c)}{c^2}} \\ &=
+												\sqrt{\dfrac{c^2}4 \times
+												\dfrac{4p(p-a)(p-b)(p-c)}{c^2}} \\
+												&=\sqrt{p(p-a)(p-b)(p-c)} \\ \end{aligned} $
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="3" class="demonstration-card mb-4">
+									<div class="card-header-demo">
+										<div class="d-flex align-items-center">
+											<div class="demo-number">3</div>
+											<div>
+												<h4 class="demo-title">🔎 Troisième méthode :</h4>
+												<p class="demo-subtitle">Loi des cotangentes</p>
+											</div>
+										</div>
+									</div>
+									<div class="card-body-demo">
+										<div class="step success">
+											<div class="step-title">
+												<i class="fas fa-check-circle"></i> Figure :
+											</div>
+											<center>
+												<img
+													src="/static/base/imgs/Herontriangle2greek.png"
+													alt=""
+													width="99%"
+													class="bg-white"
+												/>
+											</center>
+										</div>
+										<div class="step mt-5">
+											<div class="step-title">
+												<i class="fas fa-check-to-slot"></i> Démonstration :
+											</div>
+											<p class="step-content">
+												Soient $r$ le rayon du cercle inscrit et $p =
+												\dfrac{a+b+c}{2}$ le demi‑périmètre.
+											</p>
+											<p class="step-content">
+												Le triangle peut être décomposé en trois petits
+												triangles partageant la même hauteur $r$ et de bases
+												$a$, $b$ et $c$.
+											</p>
+											<p class="step-content">L’aire totale est donc :</p>
+											<div class="math-block">
+												$ \begin{aligned} A &= \dfrac{1}{2}ar + \dfrac{1}{2}br +
+												\dfrac{1}{2}cr \\ &= rp \end{aligned} $
+											</div>
+											<p class="step-content">
+												On peut aussi décomposer le triangle en six petits
+												triangles (en paires congruentes), chacun d’altitude $r$
+												et de bases $p-a$, $p-b$, $p-c$.
+											</p>
+											<p class="step-content">
+												D’après la loi des cotangentes et l’identité des
+												cotangentes, on obtient :
+											</p>
+											<div class="math-block">
+												$\begin{aligned} A &= r(p-a) + r(p-b) + r(p-c) \\ &=
+												r^2\pbig{\cot\dfrac{\alpha}{2} + \cot\dfrac{\beta}{2} +
+												\cot\dfrac{\gamma}{2}} \end{aligned} $
+											</div>
+											<p class="step-content">Avec l’identité :</p>
+											<div class="math-block">
+												$ \begin{cases} \cot\dfrac{\alpha}{2} +
+												\cot\dfrac{\beta}{2} + \cot\dfrac{\gamma}{2} =
+												\cot\dfrac{\alpha}{2} \cdot \cot\dfrac{\beta}{2} \cdot
+												\cot\dfrac{\gamma}{2} \\\\ \dfrac{\alpha}{2} +
+												\dfrac{\beta}{2} + \dfrac{\gamma}{2} = \dfrac{\pi}{2}
+												\end{cases} $
+											</div>
+											<p class="step-content">On a aussi :</p>
+											<div class="math-block">
+												$\begin{aligned} A &= r^2\cdot\cot\dfrac{\alpha}{2}
+												\cdot \cot\dfrac{\beta}{2} \cdot \cot\dfrac{\gamma}{2}
+												\\ &= \dfrac{(p-a)(p-b)(p-c)}{r} \end{aligned}$
+											</div>
+											<p class="step-content">On obtient :</p>
+											<div class="math-block">
+												$A = rp \so A^2 = p(p-a)(p-b)(p-c) $
+											</div>
+											<p class="step-content">D'où :</p>
+											<div class="math-block">
+												$A = \sqrt{p(p-a)(p-b)(p-c)} $
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+							<!-- end section -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<link rel="stylesheet" href="/static/base/css/post-detail.css" />
+
+		<!-- Footer -->
+		<footer class="footer">
+			<div class="container text-center">
+				<p>© 2025 StudentBlog. Made with ❤️ for students.</p>
+			</div>
+		</footer>
+		<script src="/static/base/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>

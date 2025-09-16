@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports - School Management System{% endblock %}
+{% block page_title %}Reports & Analytics{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Class Performance Report -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Class Performance Report
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if class_performance %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Average Score</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class_name, avg_score in class_performance.items %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ class_name }}</strong>
+                                    </td>
+                                    <td>{{ avg_score }}</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar {% if avg_score >= 90 %}bg-success{% elif avg_score >= 80 %}bg-info{% elif avg_score >= 70 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                 role="progressbar" style="width: {{ avg_score }}%">
+                                                {{ avg_score }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-chart-line fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No performance data</h6>
+                        <p class="text-muted">No marks have been recorded yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject Performance Report -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-book me-2"></i>
+                    Subject Performance Report
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if subject_performance %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Average Score</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject_name, avg_score in subject_performance.items %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ subject_name }}</strong>
+                                    </td>
+                                    <td>{{ avg_score }}</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar {% if avg_score >= 90 %}bg-success{% elif avg_score >= 80 %}bg-info{% elif avg_score >= 70 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                 role="progressbar" style="width: {{ avg_score }}%">
+                                                {{ avg_score }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-book fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No subject data</h6>
+                        <p class="text-muted">No marks have been recorded yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Attendance Report -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-calendar-check me-2"></i>
+                    Attendance Report
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if attendance_stats %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Attendance Rate</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class_name, attendance_rate in attendance_stats.items %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ class_name }}</strong>
+                                    </td>
+                                    <td>{{ attendance_rate }}%</td>
+                                    <td>
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar {% if attendance_rate >= 95 %}bg-success{% elif attendance_rate >= 90 %}bg-info{% elif attendance_rate >= 80 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                 role="progressbar" style="width: {{ attendance_rate }}%">
+                                                {{ attendance_rate }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-calendar-check fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No attendance data</h6>
+                        <p class="text-muted">No attendance records have been created yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Statistics -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Summary Statistics
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ class_performance|length }}</h4>
+                                <p class="mb-0">Classes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ subject_performance|length }}</h4>
+                                <p class="mb-0">Subjects</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ attendance_stats|length }}</h4>
+                                <p class="mb-0">Classes with Attendance</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h4>{{ best_class_average|floatformat:1 }}%</h4>
+                                <p class="mb-0">Best Class Average</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Performance Insights -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Performance Insights
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if class_performance or subject_performance %}
+                    <div class="row">
+                        {% if class_performance %}
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-trophy me-2"></i>Top Performing Classes</h6>
+                            <ul class="list-group list-group-flush">
+                                {% for class_name, avg_score in class_performance.items|slice:":3" %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ class_name }}
+                                    <span class="badge bg-primary rounded-pill">{{ avg_score|floatformat:1 }}%</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if subject_performance %}
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-star me-2"></i>Top Performing Subjects</h6>
+                            <ul class="list-group list-group-flush">
+                                {% for subject_name, avg_score in subject_performance.items|slice:":3" %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ subject_name }}
+                                    <span class="badge bg-success rounded-pill">{{ avg_score|floatformat:1 }}%</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-lightbulb fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No insights available</h6>
+                        <p class="text-muted">Add more data to generate performance insights.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

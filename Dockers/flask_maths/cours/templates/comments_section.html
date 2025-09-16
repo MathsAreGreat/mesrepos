@@ -1,0 +1,29 @@
+<div class="text-center mb-8">
+	<h2 class="text-3xl font-bold text-gray-900 mb-4">{{ area.title }}</h2>
+	<p class="text-gray-600 max-w-2xl mx-auto">{{ area.description }}</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+	{% for comment in area.comments %}
+	<div class="bg-white rounded-lg shadow-sm p-6">
+		<div class="flex items-center mb-4">
+			<div class="text-amber-400 flex">
+				{% for _ in range(comment.stars) %}
+				<i class="ri-star-fill"></i>
+				{% endfor %}
+			</div>
+		</div>
+		<p class="text-gray-700 mb-4">"{{ comment.msg }}"</p>
+		<div class="flex items-center">
+			<div
+				class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-3"
+			>
+				<span class="text-primary font-medium">{{ comment.sigle }}</span>
+			</div>
+			<div>
+				<h4 class="font-medium text-gray-900">{{ comment.name }}</h4>
+				<p class="text-sm text-gray-500">{{ comment.title }}</p>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>

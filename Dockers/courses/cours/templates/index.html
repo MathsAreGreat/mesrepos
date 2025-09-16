@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block head %}
+<title>Home</title>
+{% endblock %}
+<title>{{titre}}</title>
+<link rel="icon" type="image/png" href="/static/logo.png" />
+{% block content %}
+<div data="Courses List" class="area definition">
+	{% for todo in corps %}
+	<div class="titre info">{{ todo[0] }} :</div>
+	<div class="partie">
+		{% for ID, url, titre in todo[1:] %}
+		<p>
+			<span>
+				<a href="/cour/{{ url }}">{{ titre }}</a>
+			</span>
+			<span class="font-bold underline">
+				( <a href="/cour/edit/{{ ID }}">edit</a> )
+			</span>
+		</p>
+		{% endfor %}
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

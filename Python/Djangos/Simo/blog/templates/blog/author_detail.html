@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ author.username }} - Author | StudentBlog{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="mb-5 text-center">
+        <div class="profile-avatar mb-3">
+            <div class="avatar-circle" style="width: 70px; height: 70px; font-size: 2.2rem; margin: 0 auto;">
+                <span class="avatar-text">{{ author.username|first|upper }}</span>
+            </div>
+        </div>
+        <h1 class="display-6 mb-1">{{ author.username }}</h1>
+        <p class="lead text-muted">Member since {{ author.date_joined|date:"F Y" }}</p>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm mt-2">← All Posts</a>
+    </div>
+    <div class="mb-4">
+        <h2 class="section-title text-start">Posts by {{ author.username }}</h2>
+    </div>
+    {% if posts %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for post in posts %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title mb-2">{{ post.title|title }}</h5>
+                    <p class="card-text mb-3">{{ post.desc }}</p>
+                    <div class="d-flex gap-2 mb-3">
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary flex-grow-3 w-100">Read</a>
+                        {% if user == post.author %}
+                        <a href="{% url 'update_post' post.id %}" class="btn btn-outline-warning flex-grow-1 w-100"
+                            title="Edit Post">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{% url 'delete_post' post.id %}" method="post" style="display:inline;"
+                            class="flex-grow-1 w-100">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger w-100"
+                                onclick="return confirm('Are you sure you want to delete this post?');">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-auto small text-muted">
+                        <span>🖊️ {{ post.author }}</span>
+                        <span>📅 {{ post.created_datetime|date:"d/m/Y" }}</span>
+                        <a href="{% url 'category_detail' post.category.id %}"
+                            class="category-badge category-badge-link">{{ post.category.name }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h3>No posts by this author yet!</h3>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

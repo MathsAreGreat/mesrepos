@@ -1,0 +1,335 @@
+{% extends 'blog/base.html' %}
+{% block title %}Matrices and Operations - A Comprehensive Guide{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mx-auto" style="max-width: 900px;">
+        <!-- Article Header -->
+        <div class="article-header mb-5">
+            <div class="category-badge mb-3">
+                <span class="badge">📐 Mathematics</span>
+            </div>
+            <h1 class="display-4 mb-3">Matrices and Operations</h1>
+            <p class="lead text-muted mb-4">A comprehensive guide to understanding matrix operations, transformations, and their applications in modern computing</p>
+            
+            <div class="article-meta d-flex flex-wrap justify-content-between align-items-center">
+                <div class="author-info d-flex align-items-center">
+                    <div class="author-avatar me-3">
+                        <div class="avatar-circle-small">
+                            <span class="avatar-text-small">M</span>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Mathematics Professor</strong>
+                        <div class="text-muted">Linear Algebra Expert</div>
+                    </div>
+                </div>
+                <div class="article-stats d-flex gap-3">
+                    <span class="stat-item">📅 Published: 15/01/2025</span>
+                    <span class="stat-item">⏱️ 15 min read</span>
+                    <span class="stat-item">📊 Advanced Level</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <!-- Introduction -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Introduction to Matrices</h2>
+                <p class="article-text">
+                    Matrices are fundamental mathematical objects that represent data in a structured, tabular format. 
+                    They serve as the backbone for numerous applications in computer science, physics, engineering, and data analysis.
+                </p>
+                
+                <div class="math-highlight">
+                    <div class="math-box">
+                        <h4>Definition</h4>
+                        <p>A matrix is a rectangular array of numbers, symbols, or expressions arranged in rows and columns.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Matrix Representation -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Matrix Representation</h2>
+                <p class="article-text">
+                    A matrix A of size m×n is represented as:
+                </p>
+                
+                <div class="matrix-display">
+                    <div class="matrix-container">
+                        <div class="matrix-bracket left">[</div>
+                        <div class="matrix-content">
+                            <div class="matrix-row">
+                                <span class="matrix-element">a₁₁</span>
+                                <span class="matrix-element">a₁₂</span>
+                                <span class="matrix-element">⋯</span>
+                                <span class="matrix-element">a₁ₙ</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">a₂₁</span>
+                                <span class="matrix-element">a₂₂</span>
+                                <span class="matrix-element">⋯</span>
+                                <span class="matrix-element">a₂ₙ</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">⋮</span>
+                                <span class="matrix-element">⋮</span>
+                                <span class="matrix-element">⋱</span>
+                                <span class="matrix-element">⋮</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">aₘ₁</span>
+                                <span class="matrix-element">aₘ₂</span>
+                                <span class="matrix-element">⋯</span>
+                                <span class="matrix-element">aₘₙ</span>
+                            </div>
+                        </div>
+                        <div class="matrix-bracket right">]</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Matrix Operations -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Fundamental Matrix Operations</h2>
+                
+                <!-- Addition -->
+                <div class="operation-card mb-4">
+                    <h3 class="operation-title">1. Matrix Addition</h3>
+                    <p class="operation-description">
+                        Two matrices can be added if they have the same dimensions. Addition is performed element-wise.
+                    </p>
+                    <div class="operation-example">
+                        <div class="example-matrix">
+                            <div class="matrix-row">
+                                <span class="matrix-element">1</span>
+                                <span class="matrix-element">2</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">3</span>
+                                <span class="matrix-element">4</span>
+                            </div>
+                        </div>
+                        <div class="operation-symbol">+</div>
+                        <div class="example-matrix">
+                            <div class="matrix-row">
+                                <span class="matrix-element">5</span>
+                                <span class="matrix-element">6</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">7</span>
+                                <span class="matrix-element">8</span>
+                            </div>
+                        </div>
+                        <div class="operation-symbol">=</div>
+                        <div class="example-matrix result">
+                            <div class="matrix-row">
+                                <span class="matrix-element">6</span>
+                                <span class="matrix-element">8</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">10</span>
+                                <span class="matrix-element">12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multiplication -->
+                <div class="operation-card mb-4">
+                    <h3 class="operation-title">2. Matrix Multiplication</h3>
+                    <p class="operation-description">
+                        Matrix multiplication is more complex than addition. For matrices A (m×n) and B (n×p), 
+                        the result is a matrix C (m×p) where each element is computed as:
+                    </p>
+                    <div class="formula-box">
+                        <div class="formula">cᵢⱼ = Σₖ₌₁ⁿ aᵢₖ × bₖⱼ</div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <h4>Interactive Example</h4>
+                        <div class="demo-matrices">
+                            <div class="demo-matrix">
+                                <h5>Matrix A (2×3)</h5>
+                                <div class="matrix-grid">
+                                    <span>1</span><span>2</span><span>3</span>
+                                    <span>4</span><span>5</span><span>6</span>
+                                </div>
+                            </div>
+                            <div class="demo-matrix">
+                                <h5>Matrix B (3×2)</h5>
+                                <div class="matrix-grid">
+                                    <span>7</span><span>8</span>
+                                    <span>9</span><span>10</span>
+                                    <span>11</span><span>12</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Matrices -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Special Types of Matrices</h2>
+                
+                <div class="special-matrices-grid">
+                    <div class="special-matrix-card">
+                        <h4>Identity Matrix</h4>
+                        <div class="identity-matrix">
+                            <div class="matrix-row">
+                                <span class="matrix-element">1</span>
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">0</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">1</span>
+                                <span class="matrix-element">0</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">1</span>
+                            </div>
+                        </div>
+                        <p>Acts as the multiplicative identity</p>
+                    </div>
+                    
+                    <div class="special-matrix-card">
+                        <h4>Zero Matrix</h4>
+                        <div class="zero-matrix">
+                            <div class="matrix-row">
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">0</span>
+                            </div>
+                            <div class="matrix-row">
+                                <span class="matrix-element">0</span>
+                                <span class="matrix-element">0</span>
+                            </div>
+                        </div>
+                        <p>All elements are zero</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Real-World Applications</h2>
+                
+                <div class="applications-grid">
+                    <div class="application-card">
+                        <div class="app-icon">🎮</div>
+                        <h4>Computer Graphics</h4>
+                        <p>Transformations, rotations, and scaling in 3D graphics</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="app-icon">🤖</div>
+                        <h4>Machine Learning</h4>
+                        <p>Neural networks, data processing, and feature extraction</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="app-icon">📊</div>
+                        <h4>Data Analysis</h4>
+                        <p>Statistical computations and data transformations</p>
+                    </div>
+                    
+                    <div class="application-card">
+                        <div class="app-icon">🔬</div>
+                        <h4>Scientific Computing</h4>
+                        <p>Solving systems of linear equations and simulations</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Example -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Implementation in Python</h2>
+                
+                <div class="code-example">
+                    <div class="code-header">
+                        <span class="language-badge">🐍 Python</span>
+                        <span class="code-title">Matrix Operations with NumPy</span>
+                    </div>
+                    <pre class="code-block"><code>import numpy as np
+
+# Create matrices
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Matrix addition
+C = A + B
+print("Matrix Addition:")
+print(C)
+
+# Matrix multiplication
+D = np.dot(A, B)
+print("\nMatrix Multiplication:")
+print(D)
+
+# Matrix transpose
+A_transpose = A.T
+print("\nMatrix Transpose:")
+print(A_transpose)
+
+# Matrix determinant
+det_A = np.linalg.det(A)
+print(f"\nDeterminant of A: {det_A}")
+
+# Matrix inverse
+A_inverse = np.linalg.inv(A)
+print("\nMatrix Inverse:")
+print(A_inverse)</code></pre>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="content-section mb-5">
+                <h2 class="section-title-article">Conclusion</h2>
+                <p class="article-text">
+                    Matrices are powerful mathematical tools that enable us to solve complex problems efficiently. 
+                    Understanding matrix operations is crucial for anyone working in fields that involve data processing, 
+                    computer graphics, or scientific computing.
+                </p>
+                
+                <div class="key-takeaways">
+                    <h4>Key Takeaways</h4>
+                    <ul class="takeaways-list">
+                        <li>Matrix addition requires same dimensions</li>
+                        <li>Matrix multiplication follows specific rules</li>
+                        <li>Identity matrices preserve values under multiplication</li>
+                        <li>Matrices are fundamental to modern computing</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Article Footer -->
+            <div class="article-footer">
+                <div class="tags-section">
+                    <h5>Tags:</h5>
+                    <div class="tags">
+                        <span class="tag">#mathematics</span>
+                        <span class="tag">#linear-algebra</span>
+                        <span class="tag">#matrices</span>
+                        <span class="tag">#computing</span>
+                        <span class="tag">#python</span>
+                    </div>
+                </div>
+                
+                <div class="share-section">
+                    <h5>Share this article:</h5>
+                    <div class="share-buttons">
+                        <button class="share-btn twitter">🐦 Twitter</button>
+                        <button class="share-btn linkedin">💼 LinkedIn</button>
+                        <button class="share-btn github">📚 GitHub</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Subject - School Management System{% endblock %}
+{% block page_title %}Delete Subject{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2 text-warning"></i>
+                    Confirm Deletion
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-warning me-2"></i>Warning!</h6>
+                    <p class="mb-0">You are about to delete the subject <strong>{{ subject.name }}</strong>. This action cannot be undone.</p>
+                </div>
+                
+                <div class="mb-4">
+                    <h6>Subject Details:</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>Name:</strong> {{ subject.name }}</li>
+                        <li><strong>Code:</strong> {{ subject.code }}</li>
+                        <li><strong>Credits:</strong> {{ subject.credits }}</li>
+                        {% if subject.description %}
+                            <li><strong>Description:</strong> {{ subject.description }}</li>
+                        {% endif %}
+                        <li><strong>Teachers:</strong> {{ subject.teachers.count }}</li>
+                    </ul>
+                </div>
+                
+                {% if subject.teachers.exists %}
+                    <div class="alert alert-danger">
+                        <h6><i class="fas fa-exclamation-circle me-2"></i>Important!</h6>
+                        <p class="mb-0">This subject has {{ subject.teachers.count }} teacher(s) assigned. Deleting this subject will affect these assignments.</p>
+                    </div>
+                {% endif %}
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'academics:subject_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Delete Subject
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Document</title>
+		<ins class="hidden">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}[2]{\textcolor{#1}{#2}}$ $\newcommand {\m}[1]{\mathscr{#1}}$
+			$\newcommand {\b}[1]{\mathbb{#1}}$ $\newcommand {\pr}[1]{\left(#1\right)}$
+			$\newcommand {\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+	</head>
+
+	<body>
+		<div id="corps">
+			<div data="énoncé de l'exercice" class="area definition">
+				<p>
+					On considère la pyramide $SEFGH$ de sommet $S$ et de base le carré
+					$EFGH$ et de hauteur $[SE]$ telles que $𝐒𝐄 = 𝟏𝟐 𝐜𝐦$ et $𝐄𝐅 = 𝟓 𝐜𝐦$.
+				</p>
+				<center>
+					<img src="imgs/tmrin.png" alt="" srcset="" />
+				</center>
+				<p class="partie">$1.\;$ Calcule le volume de la pyramide $SEFGH$ .</p>
+				<div class="partie">
+					$2.\;$ La pyramide $SIJKL$ est une réduction de la pyramide $SEFGH$
+					telle que $𝐒𝐈 = 𝟗𝐜𝐦$. (𝐯𝐨𝐢𝐫 𝐟𝐢𝐠𝐮𝐫𝐞)
+					<p class="partie">$a.\;$ Détermine le taux de réduction.</p>
+					<p class="partie">$b.\;$ Déduis le volume de la pyramide $SIJKL$.</p>
+				</div>
+			</div>
+
+			<div data="solution de l'exercice" class="area solution">
+				<p class="partie">
+					$1.\;$ On a : $$ \begin{aligned} V_{SEFHGH} &= \dfrac13 \times SE
+					\times S_{EFHGH} \\ &= \dfrac13 \times 12 \times 5^2 \\ &= 4 \times 25
+					\\ &= 100 cm^3 \\ \end{aligned} $$
+				</p>
+				<p class="partie">
+					$2.\;a.\;$On a : $$ \begin{aligned} k &= \dfrac{SI}{SE} \\ &=
+					\dfrac9{12} \\ &= \dfrac34 \\ \end{aligned} $$
+				</p>
+				<p class="partie">
+					$2.\;b.\;$On a : $$ \begin{aligned} V_{SIJKL} &= V_{SEFHGH} \times
+					\pr{\dfrac{SI}{SE}}^3 \\ &= 100\times\dfrac{27}{64} \\ &=
+					\dfrac{675}{16}cm^3 \\ \end{aligned} $$
+				</p>
+			</div>
+		</div>
+		<script src="check-for-tex.js"></script>
+	</body>
+</html>

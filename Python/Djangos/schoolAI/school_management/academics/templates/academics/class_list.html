@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Classes - School Management System{% endblock %}
+{% block page_title %}Classes{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-graduation-cap me-2"></i>
+                        Class Directory
+                    </h5>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'academics:class_create' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i>Add Class
+                        </a>
+                        <a href="{% url 'academics:class_csv_upload' %}" class="btn btn-success btn-sm">
+                            <i class="fas fa-upload me-1"></i>Upload CSV
+                        </a>
+                        <a href="{% url 'academics:clean_all_classes' %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash me-1"></i>Clean All
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if classes %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>Description</th>
+                                    <th>Students</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for class in classes %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ class.name }}</strong>
+                                    </td>
+                                    <td>
+                                        {% if class.description %}
+                                            {{ class.description|truncatewords:10 }}
+                                        {% else %}
+                                            <span class="text-muted">No description</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">{{ class.students.count }} students</span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'academics:class_update' class.id %}" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit me-1"></i>Edit
+                                            </a>
+                                            <a href="{% url 'academics:class_delete' class.id %}" 
+                                               class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash me-1"></i>Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    {% include 'academics/includes/pagination.html' %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-graduation-cap fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No classes found</h5>
+                        <p class="text-muted">No classes have been added to the system yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

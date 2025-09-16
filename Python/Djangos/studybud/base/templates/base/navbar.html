@@ -1,0 +1,336 @@
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+	<div class="container">
+		<a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+			<div class="brand-icon me-2">📚</div>
+			<span class="brand-text">StudentBlog</span>
+		</a>
+
+		<div class="navbar-nav ms-auto">
+			{% if user.is_authenticated %}
+			<a
+				class="btn btn-warning me-2 px-3 navbar-btn"
+				href="{% url 'create-post' %}"
+			>
+				<i class="fas fa-plus me-1"></i>
+				New Post
+			</a>
+			{% if user.is_superuser %}
+			<a
+				class="btn btn-info me-2 px-3 navbar-btn"
+				href="/admin/"
+				target="_blank"
+			>
+				<i class="fas fa-cog me-1"></i>
+				Dashboard
+			</a>
+			{% endif %}
+			<a
+				class="btn btn-success me-2 px-3 navbar-btn"
+				href="{% url 'users:profile' %}"
+			>
+				<i class="fas fa-user me-1"></i>
+				{{ user.username }}
+			</a>
+			<a class="btn btn-danger px-3 navbar-btn" href="{% url 'users:logout' %}">
+				<i class="fas fa-sign-out-alt me-1"></i>
+				Logout
+			</a>
+			{% else %}
+			<a
+				class="btn btn-primary me-2 px-3 navbar-btn"
+				href="{% url 'users:signup' %}"
+			>
+				<i class="fas fa-user-plus me-1"></i>
+				Sign Up
+			</a>
+			<a
+				class="btn btn-outline-light px-3 navbar-btn"
+				href="{% url 'users:login' %}"
+			>
+				<i class="fas fa-sign-in-alt me-1"></i>
+				Login
+			</a>
+			{% endif %}
+		</div>
+	</div>
+</nav>
+
+<style>
+	/* Custom Navbar Styling */
+	.custom-navbar {
+		background: linear-gradient(
+			135deg,
+			#0f0f23 0%,
+			#1a1a2e 25%,
+			#16213e 50%,
+			#0f3460 75%,
+			#533483 100%
+		) !important;
+		backdrop-filter: blur(20px);
+		border-bottom: 4px solid;
+		border-image: linear-gradient(
+				90deg,
+				#00d4ff,
+				#ff6b6b,
+				#4ecdc4,
+				#f9ca24,
+				#00d4ff
+			)
+			1;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+			inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 20px rgba(0, 212, 255, 0.3);
+		padding: 1.2rem 0;
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		animation: navbarGlow 3s ease-in-out infinite alternate;
+	}
+
+	@keyframes navbarGlow {
+		0% {
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 20px rgba(0, 212, 255, 0.3);
+		}
+		100% {
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9),
+				inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(0, 212, 255, 0.6);
+		}
+	}
+
+	/* Override any Bootstrap default navbar colors */
+	.navbar-dark {
+		background-color: transparent !important;
+	}
+
+	.navbar {
+		background-color: transparent !important;
+	}
+
+	/* Brand Styling */
+	.navbar-brand {
+		text-decoration: none;
+		color: #ffffff !important;
+		transition: all 0.4s ease;
+		position: relative;
+	}
+
+	.navbar-brand:hover {
+		transform: scale(1.08) rotate(1deg);
+		filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.6));
+	}
+
+	.brand-icon {
+		font-size: 2.2rem;
+		background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4, #f9ca24);
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		filter: drop-shadow(0 2px 8px rgba(0, 212, 255, 0.5));
+		animation: gradientShift 4s ease-in-out infinite;
+	}
+
+	@keyframes gradientShift {
+		0%,
+		100% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+	}
+
+	.brand-text {
+		font-size: 1.8rem;
+		font-weight: 800;
+		background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4, #f9ca24);
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		letter-spacing: 2px;
+		animation: gradientShift 4s ease-in-out infinite reverse;
+		text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+	}
+
+	/* Navbar Buttons */
+	.navbar-btn {
+		font-weight: 600;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+		border-radius: 25px;
+		padding: 0.6rem 1.5rem;
+		transition: all 0.3s ease;
+		border: 2px solid transparent;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.navbar-btn::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(255, 255, 255, 0.2),
+			transparent
+		);
+		transition: left 0.5s;
+	}
+
+	.navbar-btn:hover::before {
+		left: 100%;
+	}
+
+	.navbar-btn:hover {
+		transform: translateY(-3px) scale(1.05);
+		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+		z-index: 2;
+	}
+
+	/* Button Color Schemes */
+	.btn-success {
+		background: linear-gradient(45deg, #00ff88, #00d4aa, #00b894) !important;
+		border: none !important;
+		color: #000 !important;
+		font-weight: 700 !important;
+		text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+	}
+
+	.btn-success:hover {
+		background: linear-gradient(45deg, #00d4aa, #00b894, #00a085) !important;
+		box-shadow: 0 8px 25px rgba(0, 255, 136, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	.btn-danger {
+		background: linear-gradient(45deg, #ff4757, #ff3838, #ff6348) !important;
+		border: none !important;
+		color: white !important;
+		font-weight: 700 !important;
+	}
+
+	.btn-danger:hover {
+		background: linear-gradient(45deg, #ff3838, #ff6348, #ff5252) !important;
+		box-shadow: 0 8px 25px rgba(255, 71, 87, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	.btn-warning {
+		background: linear-gradient(45deg, #ffa502, #ffb142, #ffc048) !important;
+		border: none !important;
+		color: #000 !important;
+		font-weight: 700 !important;
+		text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3) !important;
+	}
+
+	.btn-warning:hover {
+		background: linear-gradient(45deg, #ffb142, #ffc048, #ffd32a) !important;
+		box-shadow: 0 8px 25px rgba(255, 165, 2, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	.btn-info {
+		background: linear-gradient(45deg, #3742fa, #2f3542, #5352ed) !important;
+		border: none !important;
+		color: white !important;
+		font-weight: 700 !important;
+	}
+
+	.btn-info:hover {
+		background: linear-gradient(45deg, #2f3542, #5352ed, #3742fa) !important;
+		box-shadow: 0 8px 25px rgba(55, 66, 250, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	.btn-primary {
+		background: linear-gradient(45deg, #00d4ff, #0099cc, #00b8d9) !important;
+		border: none !important;
+		color: white !important;
+		font-weight: 700 !important;
+	}
+
+	.btn-primary:hover {
+		background: linear-gradient(45deg, #0099cc, #00b8d9, #00d4ff) !important;
+		box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	.btn-outline-light {
+		background: transparent !important;
+		border: 2px solid #00d4ff !important;
+		color: #00d4ff !important;
+		font-weight: 700 !important;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.btn-outline-light::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(0, 212, 255, 0.2),
+			transparent
+		);
+		transition: left 0.5s;
+	}
+
+	.btn-outline-light:hover::before {
+		left: 100%;
+	}
+
+	.btn-outline-light:hover {
+		background: linear-gradient(45deg, #00d4ff, #0099cc) !important;
+		color: #000 !important;
+		box-shadow: 0 8px 25px rgba(0, 212, 255, 0.6) !important;
+		transform: translateY(-3px) scale(1.05) !important;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.navbar-nav {
+			margin-top: 1rem;
+			gap: 0.75rem;
+		}
+
+		.navbar-nav .btn {
+			margin: 0.25rem 0;
+			width: 100%;
+			justify-content: center;
+		}
+
+		.brand-text {
+			font-size: 1.3rem;
+		}
+
+		.brand-icon {
+			font-size: 1.6rem;
+		}
+	}
+
+	/* Ensure navbar styles take precedence */
+	.custom-navbar .navbar-btn {
+		background: inherit !important;
+		border: inherit !important;
+		color: inherit !important;
+		box-shadow: inherit !important;
+	}
+
+	.custom-navbar .navbar-btn:hover {
+		background: inherit !important;
+		border: inherit !important;
+		color: inherit !important;
+		transform: inherit !important;
+		box-shadow: inherit !important;
+	}
+</style>

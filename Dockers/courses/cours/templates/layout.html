@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='style.css') }}"
+		/>
+		{% block head %}{% endblock %}
+		<link
+			rel="icon"
+			type="image/png"
+			href="{{ url_for('static', filename='logo.png') }}"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<ins style="display: none">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}{\textcolor}$ $\newcommand {\m}{\mathscr}$ $\newcommand
+			{\b}{\mathbb}$$\newcommand {\pr}[1]{\left(#1\right)}$ $\newcommand
+			{\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+	</head>
+
+	<body>
+		<nav
+			class="z-10 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 top-0 sticky"
+		>
+			<div
+				class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+			>
+				<p class="flex items-center space-x-3 rtl:space-x-reverse">
+					<img src="/static/imgs/logo.svg" class="h-8" alt="Flowbite Logo" />
+					<span
+						class="text-2xl font-semibold whitespace-nowrap dark:text-white mx-4"
+					>
+						OUALIL
+					</span>
+				</p>
+
+				<a
+					href="/add"
+					class="font-bold block py-2 px-3 text-white bg-blue-700 rounded hover:bg-green-500"
+					aria-current="page"
+				>
+					Create New
+				</a>
+
+				<a
+					href="/home"
+					class="font-bold block py-2 px-3 text-white bg-blue-700 rounded hover:bg-green-500"
+					aria-current="page"
+				>
+					Home
+				</a>
+			</div>
+		</nav>
+
+		{% block content %}{% endblock %}
+		<script src="{{ url_for('static', filename='check-for-tex.js') }}"></script>
+	</body>
+</html>

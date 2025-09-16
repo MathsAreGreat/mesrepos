@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Subjects - School Management System{% endblock %}
+{% block page_title %}Subjects{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-book me-2"></i>
+                        Subject Directory
+                    </h5>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'academics:subject_create' %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus me-1"></i>Add Subject
+                        </a>
+                        <a href="{% url 'academics:clean_all_subjects' %}" class="btn btn-danger btn-sm">
+                            <i class="fas fa-trash me-1"></i>Clean All
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if subjects %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Credits</th>
+                                    <th>Description</th>
+                                    <th>Teachers</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for subject in subjects %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-primary">{{ subject.code }}</span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ subject.name }}</strong>
+                                    </td>
+                                    <td>{{ subject.credits }}</td>
+                                    <td>
+                                        {% if subject.description %}
+                                            {{ subject.description|truncatewords:10 }}
+                                        {% else %}
+                                            <span class="text-muted">No description</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% for teacher in subject.teachers.all %}
+                                            <span class="badge bg-info me-1">{{ teacher.full_name }}</span>
+                                        {% empty %}
+                                            <span class="text-muted">No teachers assigned</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'academics:subject_update' subject.code %}" 
+                                               class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-edit me-1"></i>Edit
+                                            </a>
+                                            <a href="{% url 'academics:subject_delete' subject.code %}" 
+                                               class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash me-1"></i>Delete
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    {% include 'academics/includes/pagination.html' %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-book fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No subjects found</h5>
+                        <p class="text-muted">No subjects have been added to the system yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

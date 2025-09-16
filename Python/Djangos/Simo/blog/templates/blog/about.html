@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container my-5">
+    <div class="about-section mx-auto">
+        <h1 class="section-title">About Us</h1>
+        <p class="lead mb-5">
+            A modern Django app built with love and purpose for students.
+        </p>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="section-title text-start mb-3">🚀 Our Mission</h4>
+                        <p class="card-text">
+                            We aim to simplify development by creating powerful, elegant web
+                            solutions using the Django framework. Our goal is to make tools that
+                            empower students and their ideas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h4 class="section-title text-start mb-3">🧰 Tech Stack</h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span class="icon">💻</span> Django & Python
+                            </li>
+                            <li class="list-group-item">
+                                <span class="icon">🛢️</span> PostgreSQL & SQLite
+                            </li>
+                            <li class="list-group-item">
+                                <span class="icon">🎨</span> Bootstrap 5
+                            </li>
+                            <li class="list-group-item">
+                                <span class="icon">🐳</span> Docker
+                            </li>
+                            <li class="list-group-item">
+                                <span class="icon">🔗</span> GitHub & CI/CD
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

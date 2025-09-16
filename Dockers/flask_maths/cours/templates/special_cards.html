@@ -1,0 +1,23 @@
+<h2 class="text-3xl font-bold text-gray-900 mb-8">Specialized Topics</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+	{% for course in specialized_courses %}
+	<div
+		class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow"
+	>
+		<div
+			class="w-12 h-12 bg-{{ course.color }}-500/10 rounded-full flex items-center justify-center mb-4"
+		>
+			<i class="ri-function-line text-{{ course.color }}-500 text-xl"></i>
+		</div>
+		<h3 class="text-lg font-semibold text-gray-900 mb-2">{{ course.title }}</h3>
+		<p class="text-gray-600 mb-4">{{ course.description }}</p>
+		<a
+			href="#"
+			class="text-{{ course.color }}-500 font-medium flex items-center"
+		>
+			Learn more
+			<i class="ri-arrow-right-line ml-1"></i>
+		</a>
+	</div>
+	{% endfor %}
+</div>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Student Marks</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body class="container">
+		<div class="my-3">
+			<a href="/">Back</a>
+		</div>
+
+		<form
+			class="row justify-content-md-center mb-5"
+			method="POST"
+			action="/add_student"
+		>
+			<div class="row g-2 align-items-center">
+				<div class="col-auto">
+					<input
+						type="text"
+						id="name"
+						name="name"
+						class="form-control"
+						aria-describedby="nameHelpInline"
+						placeholder="Name .."
+					/>
+				</div>
+				<div class="col-auto">
+					<span id="nameHelpInline" class="form-text">
+						Must be 8-20 characters long.
+					</span>
+				</div>
+			</div>
+			<div class="row g-2 align-items-center">
+				<div class="col-auto">
+					<input
+						type="text"
+						id="date"
+						name="date"
+						class="form-control"
+						aria-describedby="dateHelpInline"
+						placeholder="Date .."
+					/>
+				</div>
+				<div class="col-auto">
+					<span id="dateHelpInline" class="form-text">
+						Must be 8-20 characters long.
+					</span>
+				</div>
+			</div>
+			<div class="row g-2 align-items-center">
+				<div class="col-auto">
+					<input
+						type="text"
+						id="profession"
+						name="profession"
+						class="form-control"
+						aria-describedby="professionHelpInline"
+						placeholder="Profession .."
+					/>
+				</div>
+				<div class="col-auto">
+					<span id="professionHelpInline" class="form-text">
+						Must be 8-20 characters long.
+					</span>
+				</div>
+			</div>
+			<div class="row g-3 align-items-start">
+				<div class="col-auto">
+					<input
+						type="submit"
+						class="form-control btn btn-success"
+						aria-describedby="passwordHelpInline"
+					/>
+				</div>
+			</div>
+		</form>
+
+		<div class="table-responsive-sm mt-5">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Name</th>
+						<th scope="col">Date</th>
+						<th scope="col">Profession</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for id, student in students.items() %}
+					<tr>
+						<th scope="row">
+							<span>{{ id.split("-")[0] }}</span>
+						</th>
+						<td>
+							<span>{{ student.name.title() }}</span>
+						</td>
+						<td>
+							{{ student.date.annee }}-{{ student.date.mois }}-{{
+							student.date.jour }}
+						</td>
+						<td>{{ student.profession }}</td>
+						<td>
+							<a
+								class="block bg-primary text-white py-2 px-3 link-underline link-underline-opacity-0 rounded"
+								href="{{ url_for('update_student', id=id) }}"
+							>
+								update
+							</a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Update Student</title>
+	</head>
+	<body>
+		<h1>Update Student - {{ student.name }}</h1>
+		<form method="post">
+			<p>Name : {{ student.full_name }}</p>
+			Marks: <br />
+			{% for i in range(1, 4) %}
+			<input
+				type="number"
+				name="mark{{ i }}"
+				value="{{ student['mark' + i|string] }}"
+				required
+			/><br />
+			{% endfor %}
+			<button type="submit">Update</button>
+		</form>
+		<a href="{{ url_for('index') }}">Back</a>
+	</body>
+</html>

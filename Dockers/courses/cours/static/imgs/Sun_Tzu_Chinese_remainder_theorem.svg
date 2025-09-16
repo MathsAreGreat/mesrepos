@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="-10 0 120 180">
+ <title>Sun Tzu Chinese remainder theorem</title>
+ <desc>Solution of Sun Tzu's puzzle of the Chinese remainder theorem drawn by CMG Lee.</desc>
+ <defs>
+  <radialGradient id="grad" cx="50%" cy="50%" r="50%" fx="33%" fy="33%">
+   <stop offset="10%" stop-color="#ffcc99"/>
+   <stop offset="90%" stop-color="#cc9966"/>
+  </radialGradient>
+  <circle id="ball" cx="0" cy="0" r="4.9" fill="url(#grad)"/>
+  <g id="a" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan></text></g>
+  <g id="b" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>2</tspan></text></g>
+  <g id="c" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>3</tspan></text></g>
+  <g id="d" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>4</tspan></text></g>
+  <g id="e" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>5</tspan></text></g>
+  <g id="f" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>6</tspan></text></g>
+  <g id="g" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>7</tspan></text></g>
+  <g id="h" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>8</tspan></text></g>
+  <g id="i" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>9</tspan></text></g>
+  <g id="j" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">0</tspan></text></g>
+  <g id="k" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">1</tspan></text></g>
+  <g id="l" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">2</tspan></text></g>
+  <g id="m" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">3</tspan></text></g>
+  <g id="n" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">4</tspan></text></g>
+  <g id="o" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">5</tspan></text></g>
+  <g id="p" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">6</tspan></text></g>
+  <g id="q" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">7</tspan></text></g>
+  <g id="r" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">8</tspan></text></g>
+  <g id="s" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>1</tspan><tspan dx="-1">9</tspan></text></g>
+  <g id="t" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>2</tspan><tspan dx="-1">0</tspan></text></g>
+  <g id="u" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>2</tspan><tspan dx="-1">1</tspan></text></g>
+  <g id="v" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>2</tspan><tspan dx="-1">2</tspan></text></g>
+  <g id="w" stroke="none"><use xlink:href="#ball"/><text x="0" y="2.5"><tspan>2</tspan><tspan dx="-1">3</tspan></text></g>
+  <path id="arrowhead" d="M -2,2 Q 0,0 0,-4 Q 0,0 2,2" fill="none"/>
+ </defs>
+ <g font-family="Helvetica,Arial,sans-serif" font-size="7" text-anchor="middle" stroke-linecap="round" stroke-width="0.8" stroke="#000000" fill="#000000">
+  <circle cx="0" cy="0" r="99999" fill="#ffffff"/>
+  <g>
+   <use xlink:href="#a" transform="translate(10,10)"/>
+   <use xlink:href="#b" transform="translate(10,20)"/>
+   <use xlink:href="#c" transform="translate(10,30)"/>
+   <use xlink:href="#d" transform="translate(20,10)"/>
+   <use xlink:href="#e" transform="translate(20,20)"/>
+   <use xlink:href="#f" transform="translate(20,30)"/>
+   <use xlink:href="#g" transform="translate(30,10)"/>
+   <use xlink:href="#h" transform="translate(30,20)"/>
+   <use xlink:href="#i" transform="translate(30,30)"/>
+   <use xlink:href="#j" transform="translate(40,10)"/>
+   <use xlink:href="#k" transform="translate(40,20)"/>
+   <use xlink:href="#l" transform="translate(40,30)"/>
+   <use xlink:href="#m" transform="translate(50,10)"/>
+   <use xlink:href="#n" transform="translate(50,20)"/>
+   <use xlink:href="#o" transform="translate(50,30)"/>
+   <use xlink:href="#p" transform="translate(60,10)"/>
+   <use xlink:href="#q" transform="translate(60,20)"/>
+   <use xlink:href="#r" transform="translate(60,30)"/>
+   <use xlink:href="#s" transform="translate(70,10)"/>
+   <use xlink:href="#t" transform="translate(70,20)"/>
+   <use xlink:href="#u" transform="translate(70,30)"/>
+   <use xlink:href="#v" transform="translate(90,10)"/>
+   <use xlink:href="#w" transform="translate(90,20)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,30) scale(-1)"/>
+   <path d="M 0,10 V 30"/>
+   <text x="-5" y="23" stroke="none">3</text>
+   <use xlink:href="#arrowhead" transform="translate(100,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(100,20) scale(-1)"/>
+   <path d="M 100,10 V 20"/>
+   <text x="105" y="18" stroke="none">2</text>
+  </g>
+  <g transform="translate(0,40)">
+   <use xlink:href="#a" transform="translate(10,10)"/>
+   <use xlink:href="#b" transform="translate(10,20)"/>
+   <use xlink:href="#c" transform="translate(10,30)"/>
+   <use xlink:href="#d" transform="translate(10,40)"/>
+   <use xlink:href="#e" transform="translate(10,50)"/>
+   <use xlink:href="#f" transform="translate(20,10)"/>
+   <use xlink:href="#g" transform="translate(20,20)"/>
+   <use xlink:href="#h" transform="translate(20,30)"/>
+   <use xlink:href="#i" transform="translate(20,40)"/>
+   <use xlink:href="#j" transform="translate(20,50)"/>
+   <use xlink:href="#k" transform="translate(30,10)"/>
+   <use xlink:href="#l" transform="translate(30,20)"/>
+   <use xlink:href="#m" transform="translate(30,30)"/>
+   <use xlink:href="#n" transform="translate(30,40)"/>
+   <use xlink:href="#o" transform="translate(30,50)"/>
+   <use xlink:href="#p" transform="translate(40,10)"/>
+   <use xlink:href="#q" transform="translate(40,20)"/>
+   <use xlink:href="#r" transform="translate(40,30)"/>
+   <use xlink:href="#s" transform="translate(40,40)"/>
+   <use xlink:href="#t" transform="translate(40,50)"/>
+   <use xlink:href="#u" transform="translate(60,10)"/>
+   <use xlink:href="#v" transform="translate(60,20)"/>
+   <use xlink:href="#w" transform="translate(60,30)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,50) scale(-1)"/>
+   <path d="M 0,10 V 50"/>
+   <text x="-5" y="33" stroke="none">5</text>
+   <use xlink:href="#arrowhead" transform="translate(70,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(70,30) scale(-1)"/>
+   <path d="M 70,10 V 30"/>
+   <text x="75" y="23" stroke="none">3</text>
+  </g>
+  <g transform="translate(0,100)">
+   <use xlink:href="#a" transform="translate(10,10)"/>
+   <use xlink:href="#b" transform="translate(10,20)"/>
+   <use xlink:href="#c" transform="translate(10,30)"/>
+   <use xlink:href="#d" transform="translate(10,40)"/>
+   <use xlink:href="#e" transform="translate(10,50)"/>
+   <use xlink:href="#f" transform="translate(10,60)"/>
+   <use xlink:href="#g" transform="translate(10,70)"/>
+   <use xlink:href="#h" transform="translate(20,10)"/>
+   <use xlink:href="#i" transform="translate(20,20)"/>
+   <use xlink:href="#j" transform="translate(20,30)"/>
+   <use xlink:href="#k" transform="translate(20,40)"/>
+   <use xlink:href="#l" transform="translate(20,50)"/>
+   <use xlink:href="#m" transform="translate(20,60)"/>
+   <use xlink:href="#n" transform="translate(20,70)"/>
+   <use xlink:href="#o" transform="translate(30,10)"/>
+   <use xlink:href="#p" transform="translate(30,20)"/>
+   <use xlink:href="#q" transform="translate(30,30)"/>
+   <use xlink:href="#r" transform="translate(30,40)"/>
+   <use xlink:href="#s" transform="translate(30,50)"/>
+   <use xlink:href="#t" transform="translate(30,60)"/>
+   <use xlink:href="#u" transform="translate(30,70)"/>
+   <use xlink:href="#v" transform="translate(50,10)"/>
+   <use xlink:href="#w" transform="translate(50,20)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(0,70) scale(-1)"/>
+   <path d="M 0,10 V 70"/>
+   <text x="-5" y="43" stroke="none">7</text>
+   <use xlink:href="#arrowhead" transform="translate(60,10)"/>
+   <use xlink:href="#arrowhead" transform="translate(60,20) scale(-1)"/>
+   <path d="M 60,10 V 20"/>
+   <text x="65" y="18" stroke="none">2</text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,14 @@
+:where([class^="ri-"])::before {
+	content: "\f3c2";
+}
+body {
+	font-family: "Poppins", sans-serif;
+}
+.course-card:hover {
+	transform: translateY(-5px);
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}

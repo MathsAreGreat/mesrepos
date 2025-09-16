@@ -1,0 +1,72 @@
+{% extends "blog/base.html" %} {% block content %}
+<div class="container py-5">
+	<div class="mx-auto" style="max-width: 800px">
+		<!-- Post Header -->
+		<div class="mb-5">
+			<h1 class="card-title mb-4 h3">{{ object.title|title }}</h1>
+
+			<div
+				class="d-flex flex-wrap justify-content-between text-muted mb-4 align-items-center"
+			>
+				<p>
+					🖊️
+					<strong>
+						<a
+							href="{% url 'author_detail' object.author.id %}"
+							class="author-link"
+						>
+							@{{ object.author.username }}</a
+						></strong
+					>
+				</p>
+				<p>📅 {{ object.created_datetime|date:"d/m/Y" }}</p>
+				<a
+					href="{% url 'category_detail' object.category.id %}"
+					class="category-badge category-badge-link ms-2"
+					>{{ object.category.name }}</a
+				>
+			</div>
+
+			{% if object.desc %}
+			<div class="mb-4">
+				<p class="lead">{{ object.desc }}</p>
+				<hr class="my-4" style="border-color: var(--border-color)" />
+			</div>
+			{% endif %}
+
+			<div class="d-flex justify-content-between flex-wrap gap-3">
+				<a href="{% url 'home' %}" class="btn btn-outline-dark">
+					← All Posts
+				</a>
+				{% if user == object.author %}
+				<div class="d-flex gap-2">
+					<a
+						href="{% url 'update_post' object.pk %}"
+						class="btn btn-outline-primary"
+						>✏️ Edit</a
+					>
+					<form
+						action="{% url 'delete_post' object.pk %}"
+						method="post"
+						style="display: inline"
+					>
+						{% csrf_token %}
+						<button
+							type="submit"
+							class="btn btn-outline-danger"
+							onclick="return confirm('Are you sure you want to delete this post?');"
+						>
+							🗑️ Delete
+						</button>
+					</form>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<hr />
+
+		<!-- Post Content -->
+		<div class="post-content">{{ object.content|safe }}</div>
+	</div>
+</div>
+{% endblock %}

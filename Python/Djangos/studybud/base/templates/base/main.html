@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>{% block title %}Student Blogs{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="{% static 'base/imgs/logo.png' %}"
+		/>
+
+		<link rel="stylesheet" href="{% static 'base/css/all.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'base/css/styles.css' %}" />
+		<link rel="stylesheet" href="{% static 'base/css/detail-post.css' %}" />
+
+		<ins style="display: none">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}{\textcolor}$ $\newcommand {\m}{\mathscr}$ $\newcommand
+			{\b}{\mathbb}$$\newcommand {\pr}[1]{\left(#1\right)}$ $\newcommand
+			{\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+		<script>
+			window.MathJax = {
+				tex: {
+					inlineMath: [
+						["$", "$"],
+						["\\(", "\\)"],
+					],
+					displayMath: [
+						["$$", "$$"],
+						["\\[", "\\]"],
+					],
+					processEscapes: true,
+				},
+				options: {
+					skipHtmlTags: [
+						"script",
+						"noscript",
+						"style",
+						"textarea",
+						"pre",
+						"code",
+					],
+				},
+				svg: { fontCache: "global" },
+			};
+		</script>
+		<script
+			src="{% static 'base/mathjax/es5/tex-mml-chtml.js' %}"
+			async
+		></script>
+	</head>
+
+	<body>
+		<!-- Navigation -->
+		{% include 'base/navbar.html' %}
+
+		<!-- Main Content -->
+		<main class="main-content">
+			{% if messages %}
+			<div class="container mt-3 bg-transparent">
+				{% for message in messages %}
+				<div
+					class="alert alert-{{ message.tags }} alert-dismissible fade show"
+					role="alert"
+				>
+					{{ message }}
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="alert"
+						aria-label="Close"
+						onclick="this.closest('.alert').style.display='none';"
+					></button>
+				</div>
+				{% endfor %}
+			</div>
+			{% endif %}
+			<!-- prettier-ignore -->
+			{% block content %} {% endblock %}
+		</main>
+
+		<!-- Footer -->
+		<footer class="footer">
+			<div class="container text-center">
+				<p>© 2026 StudentBlog. Made with ❤️ for students.</p>
+			</div>
+		</footer>
+
+		<script src="{% static 'base/js/bootstrap.bundle.min.js' %}"></script>
+	</body>
+</html>

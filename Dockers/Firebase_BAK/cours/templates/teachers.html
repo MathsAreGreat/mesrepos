@@ -1,0 +1,16 @@
+<h2>Teachers</h2>
+<form method="POST" action="/add_teacher">
+	Name: <input name="name" required /> Subject:
+	<input name="subject" required />
+	<button type="submit">Add</button>
+</form>
+
+<ul>
+	{% for id, teacher in teachers.items() %}
+	<li>
+		{{ teacher.name }} - {{ teacher.subject }}
+		<a href="/delete_teacher/{{ id }}">Delete</a>
+	</li>
+	{% endfor %}
+</ul>
+<a href="/">Back</a>

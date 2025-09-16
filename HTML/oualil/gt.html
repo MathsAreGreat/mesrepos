@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Student Blog</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/base/css/bootstrap.min.css" />
+
+		<link rel="stylesheet" href="/static/base/css/all.min.css" />
+		<link rel="stylesheet" href="/static/base/css/styles.css" />
+
+		<ins style="display: none">
+			$\newcommand {\so}{\Longrightarrow}$ $\newcommand {\ds}{\displaystyle}$
+			$\newcommand {\vect}{\overrightarrow}$ $\newcommand
+			{\iff}{\Longleftrightarrow}$ $\newcommand {\ang}{\widehat}$ $\newcommand
+			{\ijk}{(O;\vec{i};\vec{j};\vec{k})}$ $\newcommand
+			{\ij}{(O;\vec{i};\vec{j})}$ $\newcommand {\ro}{(O;I;J)}$ $\newcommand
+			{\c}{\textcolor}$ $\newcommand {\m}{\mathscr}$ $\newcommand
+			{\b}{\mathbb}$$\newcommand {\pr}[1]{\left(#1\right)}$ $\newcommand
+			{\pbig}[1]{\Big(#1\Big)}$
+		</ins>
+		<script>
+			window.MathJax = {
+				tex: {
+					inlineMath: [
+						["$", "$"],
+						["\\(", "\\)"],
+					],
+					displayMath: [
+						["$$", "$$"],
+						["\\[", "\\]"],
+					],
+					processEscapes: true,
+				},
+				options: {
+					skipHtmlTags: [
+						"script",
+						"noscript",
+						"style",
+						"textarea",
+						"pre",
+						"code",
+					],
+				},
+				svg: { fontCache: "global" },
+			};
+		</script>
+		<script src="/static/base/mathjax/es5/tex-mml-chtml.js" async></script>
+	</head>
+
+	<body>
+		<section class="mb-2">
+			<div class="h3 text-info">
+				<u>Démonstration 1 [Infinité des premiers] :</u>
+			</div>
+			<div class="card-text fs-5 text-light my-3">
+				<div class="border-start border-5 border-success ps-3 pb-1">
+					<p>
+						On suppose qu'il existe seulement un ensemble fini de nombres
+						premiers $p_1,\cdots,p_k \quad (k \in \b{N})$
+					</p>
+					<p>
+						On considère le nombre : $\;A=p_1 \times p_2 \times \cdots \times
+						p_k+1$
+					</p>
+					<p>
+						On remarque que $A$ n'est pas divisible par aucun des
+						$\;(p_{i})_{1\leq i \leq k}$
+					</p>
+					<p>Alors $A$ est aussi premier ce qui est absurde .</p>
+					<p>D'où l'ensembles des premiers est infini</p>
+					<!-- prettier-ignore -->
+				</div>
+			</div>
+			<hr />
+		</section>
+		<section class="mb-2">
+			<div class="h3 text-info"><u>Introduction :</u></div>
+			<div class="card-text fs-5 lh-lg text-light">
+				<p>
+					En géométrie euclidienne, la formule de Héron, portant le nom de Héron
+					d'Alexandrie, permet de calculer l'aire $S$ d'un triangle quelconque
+					en ne connaissant que les longueurs $a$, $b$ et $c$ de ses trois côtés
+					: $$ S= \sqrt{p(p-a)(p-b)(p-c)}\quad {\text{avec}}\quad
+					p=\dfrac{a+b+c}{2} $$ La formule était déjà connue d'Archimède.
+				</p>
+			</div>
+		</section>
+		<section class="mb-2">
+			<div class="h3 text-info"><u>Démonstrations :</u></div>
+			<div class="card-text fs-5 lh-lg text-light">
+				<p>
+					Héron d'Alexandrie énonce et démontre son théorème dans son traité Les
+					Métriques.
+				</p>
+				<p>
+					Sa démonstration s'appuie sur les propriétés du cercle inscrit dans un
+					triangle et sur l'exploitation des rapports de longueurs dans des
+					triangles semblables .
+				</p>
+				<p>
+					Les propriétés trigonométriques permettent une démonstration plus
+					courte de cette égalité.
+				</p>
+				<p>
+					Ainsi, la formule de Héron peut se déduire de manière algébrique de la
+					loi des cosinus (Théorème d'Al-Kashi).
+				</p>
+				<div class="border-start border-4 border-success my-5 px-3">
+					<div class="text-warning h4 mb-4"><u>Loi des cosinus :</u></div>
+					<center class="py-3">
+						<img
+							src="/static/base/imgs/Triangle_with_notations.png"
+							alt=""
+							width="70%"
+							class="bg-white"
+						/>
+					</center>
+					<p>
+						La loi des cosinus s'écrit : $\quad 2ab\cos \gamma =a^2+b^2-c^2$
+					</p>
+					<p>
+						jointe à la formule classique de l'aire du triangle donnée par cet
+						angle et les côtés adjacents : $$ \begin{aligned}
+						S&=\dfrac{ab}{2}\sin\gamma \\ &=\dfrac{2ab}{4}\sqrt{1-\cos ^2\gamma
+						}\\ &=\dfrac{1}{4}\sqrt{2ab(1+\cos\gamma)2ab(1-\cos \gamma)}\\
+						&=\dfrac14 \sqrt{(2ab+a^2+b^2-c^2)(2ab-a^2-b^2+c^2)}\\ &=\dfrac14
+						\sqrt{\pbig{(a+b)^2-c^2}\pbig{c^2-(a-b)^2}} \\ &=\dfrac14
+						\sqrt{(a+b+c)(a+b-c)(c+a-b)(c-a+b)} \end{aligned} $$ Puis, en
+						notant, $ p = \dfrac{a + b + c}2$ le demi-périmètre, on conclut : $$
+						\begin{aligned} S&= \dfrac14\sqrt{2p(2p-2c)(2p-2b)(2p-2a)} \\ &=
+						\dfrac14\sqrt{16p(p-c)(p-b)(p-a)} \\ &= \sqrt{p(p-c)(p-b)(p-a)}
+						\end{aligned}$$
+					</p>
+				</div>
+				<hr />
+				<div class="border-start border-4 border-success my-5 px-3">
+					<div class="text-warning h4 mb-4"><u>Théorème de Pythagore :</u></div>
+					<p>
+						D'après le théorème de Pythagore : $ b^2=h^2+d^2$ and
+						$a^2=h^2+(c-d)^2$
+					</p>
+					<center class="py-3">
+						<img
+							src="/static/base/imgs/Triangle_with_notations_3.png"
+							alt=""
+							width="70%"
+							class="bg-white"
+						/>
+					</center>
+					<p>
+						Alors : $\quad a^2-b^2=c^2-2cd \so d = \dfrac{-a^2+b^2+c^2}{2c} $
+					</p>
+					<p>
+						D'où : $$ \begin{aligned} h^2&=b^2-d^2 \\
+						&=b^2-\pbig{\dfrac{-a^2+b^2+c^2}{2c}}^2 \\\\
+						&=\dfrac{(2bc-a^2+b^2+c^2)(2bc+a^2-b^2-c^2)}{4c^2}\\\\
+						&=\dfrac{\pbig{(b+c)^2-a^2}\pbig{a^2-(b-c)^2}}{4c^2}\\\\
+						&=\dfrac{(a+b+c)(b+c-a)(a-b+c)(a+b-c)}{4c^2} \\\\ &=\dfrac{2p \times
+						2(p-a) \times 2(p-b) \times 2(p-c)}{4c^2} \\\\
+						&=\dfrac{16s(p-a)(p-b)(p-c)}{4c^2} \\\\
+						&=\dfrac{4p(p-a)(p-b)(p-c)}{c^2} \end{aligned} $$ Donc : $$
+						\begin{aligned} A &= \dfrac{c \times h}2 \\ &= \dfrac12 c
+						\sqrt{\dfrac{4p(p-a)(p-b)(p-c)}{c^2}} \\ &= \sqrt{\dfrac{c^2}4
+						\times \dfrac{4p(p-a)(p-b)(p-c)}{c^2}} \\ &=\sqrt{p(p-a)(p-b)(p-c)}
+						\\ \end{aligned} $$
+					</p>
+				</div>
+				<hr />
+				<div class="border-start border-4 border-success my-5 px-3">
+					<div class="text-warning h4 mb-4"><u>loi des cotangentes :</u></div>
+					<p>
+						Soit $r$ le rayon du cercle inscrit et $p = \dfrac{a+b+c}{2}$ le
+						demi‑périmètre.
+					</p>
+					<p>
+						Le triangle peut être décomposé en trois petits triangles partageant
+						la même hauteur $r$ et de bases $a$, $b$ et $c$. L’aire totale est
+						donc : $$ A = \dfrac{1}{2}ar + \dfrac{1}{2}br + \dfrac{1}{2}cr = rp
+						$$
+					</p>
+					<center class="py-3">
+						<img
+							src="/static/base/imgs/Herontriangle2greek.png"
+							alt="Triangle with incircle notation"
+							width="70%"
+							class="bg-white"
+						/>
+					</center>
+					<p>
+						On peut aussi décomposer le triangle en six petits triangles (en
+						paires congruentes), chacun d’altitude $r$ et de bases $p-a$, $p-b$,
+						$p-c$.
+					</p>
+					<p>
+						D’après la loi des cotangentes et l’identité des cotangentes, on
+						obtient : $$\begin{aligned} A &= r(p-a) + r(p-b) + r(p-c) \\ &=
+						r^2\pbig{\cot\dfrac{\alpha}{2} + \cot\dfrac{\beta}{2} +
+						\cot\dfrac{\gamma}{2}} \end{aligned} $$
+					</p>
+					<p>
+						Avec l’identité : $$ \cot\dfrac{\alpha}{2} + \cot\dfrac{\beta}{2} +
+						\cot\dfrac{\gamma}{2} = \cot\dfrac{\alpha}{2} \cdot
+						\cot\dfrac{\beta}{2} \cdot \cot\dfrac{\gamma}{2} $$ (valable si
+						$\dfrac{\alpha}{2} + \dfrac{\beta}{2} + \dfrac{\gamma}{2} =
+						\dfrac{\pi}{2}$), on a aussi : $$ \begin{aligned} A &=
+						r^2\cdot\cot\dfrac{\alpha}{2} \cdot \cot\dfrac{\beta}{2} \cdot
+						\cot\dfrac{\gamma}{2} \\ &= \dfrac{(p-a)(p-b)(p-c)}{r}
+						\end{aligned}$$
+					</p>
+					<p>
+						En combinant avec l’expression $A = rp$, on obtient : $$ A^2 =
+						p(p-a)(p-b)(p-c) $$ ce qui confirme la formule de Héron.
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="mb-2">
+			<div class="h3 text-info"><u>Définition :</u></div>
+			<div
+				class="card-text"
+				style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+			>
+				<p>
+					Dans son sens le plus courant, une médiane désigne, dans un triangle,
+					une droite joignant un des trois sommets du triangle au milieu du côté
+					opposé.
+				</p>
+				<p>
+					Par extension, en géométrie plane, les médianes d'un quadrilatère sont
+					les segments reliant les milieux de deux côtés opposés.
+				</p>
+				<p>
+					Enfin, en géométrie dans l'espace, les médianes d'un tétraèdre sont
+					les droites passant par un sommet du tétraèdre et par l'isobarycentre
+					des trois autres.
+				</p>
+			</div>
+		</section>
+		<section class="mb-2">
+			<div class="h3 text-info"><u>Géométrie du triangle :</u></div>
+			<div
+				class="card-text"
+				style="font-size: 1.1rem; line-height: 1.7; color: #f8f9fa"
+			>
+				<p>
+					Dans un triangle $ABC$, la médiane issue du sommet $A$ est la droite
+					$(AI)$ où $I$ désigne le milieu du segment $[BC]$.
+				</p>
+				<p>
+					Le terme médiane désigne parfois le segment $[AI]$ plutôt que la
+					droite $(AI)$.
+				</p>
+				<p>
+					Chaque médiane sépare le triangle $ABC$ en deux triangles d'aires
+					égales : l'aire du triangle $ABI$ est égale à l'aire du triangle
+					$ACI$.
+				</p>
+				<center>
+					<img
+						class="bg-white"
+						src="/static/base/imgs/Mediane.png"
+						alt=""
+						width="70%"
+					/>
+				</center>
+				<div class="border-start border-4 border-success my-5 px-3">
+					<div class="text-warning h4 mb-4"><u>Démonstration :</u></div>
+					<p>Considérons les deux triangles $ABI$ et $ACI$.</p>
+					<p>
+						On appelle $H$ le projeté orthogonal du point $A$ sur la droite
+						$(BC)$.
+					</p>
+					<p>Comme $I$ est le milieu du segment $[BC]$, on a $BI = CI$.</p>
+					<p>
+						Dans un triangle la médiane d'un côté est la droite qui passe par le
+						milieu de ce côté et par le sommet de son angle.
+					</p>
+					<p>L'aire du triangle ABI est égale à $ \dfrac {BI\times AH}{2}$.</p>
+					<p>L'aire du triangle ACI est égale à $ \dfrac {CI\times AH}{2}$.</p>
+					<p>Comme $BI = CI$, ces deux aires sont égales.</p>
+					<p>
+						On démontre de la même manière que les médianes issues de $B$ et de
+						$C$ vérifient cette propriété.
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="mb-2">
+			<div class="h4 text-info"><u>Théorème de la médiane :</u></div>
+			<p>
+				Dans le triangle $ABC$, si $I$ est le milieu de $[BC]$ alors : $\vect
+				{AB} + \vect {AC}=2 \vect {AI}$
+			</p>
+			<p>
+				Cette égalité est une conséquence immédiate de la définition de $I$
+				comme isobarycentre de $B$ et $C$ .
+			</p>
+			<p>
+				Le « premier théorème de la médiane » affirme que :
+				$$AB^{2}+AC^{2}=\dfrac 12 BC^{2}+2AI^{2}$$ Il fut énoncé par Apollonius
+				de Perga et par Thalès.
+			</p>
+		</section>
+	</body>
+</html>

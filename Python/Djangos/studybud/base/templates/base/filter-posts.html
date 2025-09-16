@@ -1,0 +1,15 @@
+<div class="mb-4 d-flex flex-wrap gap-3 justify-content-center">
+	<a
+		href="{% url 'home' %}"
+		class="btn btn-outline-primary btn-sm {% if not active_category %}active{% endif %}"
+		>All Posts</a
+	>
+	{% for category in categories %}
+	<a
+		href="{% url 'home' %}?category={{ category.id }}"
+		class="btn btn-outline-primary btn-sm {% if active_category == category.id|stringformat:'s' %}active{% endif %}"
+	>
+		{{ category.title }}</a
+	>
+	{% endfor %}
+</div>

@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+/* Example of adding some custom global styles */
+body {
+	background-color: #f0f0f0; /* A fallback background color */
+}
+
+input:where([type="button"]),
+input:where([type="reset"]),
+input:where([type="submit"]) {
+	/* 1 */
+	background-color: transparent;
+	/* 2 */
+	background-image: none;
+	/* 3 */
+	-webkit-appearance: button;
+}
+
+hr {
+	height: 0;
+	/* 1 */
+	color: inherit;
+	/* 2 */
+	border-top-width: 1px;
+	/* 3 */
+}
+
+/* Any other custom styles can go here */
+.custom-list {
+	@apply space-y-2 px-4 mb-4 border-l border-lime-500 border-l-4;
+}
+.partie {
+	@apply px-4 mb-4 border-l border-blue-500 hover:border-orange-500 border-l-4;
+}
+.item {
+	@apply p-1 flex-shrink-0 w-6 h-6 rounded-full bg-rose-500 text-white flex items-center justify-center font-bold mr-2;
+}
+.head {
+	@apply my-2 font-bold underline text-green-900 text-lg;
+}

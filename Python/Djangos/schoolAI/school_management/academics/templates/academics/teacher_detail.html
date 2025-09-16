@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher.full_name }} - Teacher Details{% endblock %}
+{% block page_title %}{{ teacher.full_name }}{% endblock %}
+
+{% block page_actions %}
+<div class="btn-group" role="group">
+    <a href="{% url 'academics:teacher_list' %}" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left me-1"></i>Back to Teachers
+    </a>
+    <a href="{% url 'academics:teacher_update' teacher.employee_id %}" class="btn btn-primary">
+        <i class="fas fa-edit me-1"></i>Edit Teacher
+    </a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Teacher Information -->
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-user me-2"></i>
+                    Teacher Information
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center mb-3">
+                    <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" 
+                         style="width: 80px; height: 80px;">
+                        <i class="fas fa-chalkboard-teacher fa-2x text-white"></i>
+                    </div>
+                </div>
+                
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Employee ID:</strong></td>
+                        <td><span class="badge bg-primary">{{ teacher.employee_id }}</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Full Name:</strong></td>
+                        <td>{{ teacher.full_name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td><a href="mailto:{{ teacher.email }}">{{ teacher.email }}</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phone:</strong></td>
+                        <td>{{ teacher.phone|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hire Date:</strong></td>
+                        <td>{{ teacher.hire_date|date:"M d, Y" }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Address:</strong></td>
+                        <td>{{ teacher.address|default:"Not provided" }}</td>
+                    </tr>
+                </table>
+
+                <hr>
+
+                <h6><i class="fas fa-book me-2"></i>Assigned Subject</h6>
+                {% if teacher.subject %}
+                    <span class="badge bg-info me-1 mb-1">{{ teacher.subject.code }} - {{ teacher.subject.name }}</span>
+                {% else %}
+                    <p class="text-muted">No subject assigned yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Teaching Assignments -->
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chalkboard me-2"></i>
+                    Teaching Assignments
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if teaching_assignments %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Subject</th>
+                                    <th>Academic Year</th>
+                                    <th>Semester</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for assignment in teaching_assignments %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-info">{{ assignment.class_obj.name }}</span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ assignment.subject.name }}</strong>
+                                        <br><small class="text-muted">{{ assignment.subject.code }}</small>
+                                    </td>
+                                    <td>{{ assignment.academic_year }}</td>
+                                    <td>{{ assignment.semester }}</td>
+                                    <td>
+                                        <span class="badge {% if assignment.is_active %}bg-success{% else %}bg-secondary{% endif %}">
+                                            {% if assignment.is_active %}Active{% else %}Inactive{% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-chalkboard fa-2x text-muted mb-3"></i>
+                        <h6 class="text-muted">No teaching assignments</h6>
+                        <p class="text-muted">This teacher has not been assigned to any classes yet.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Students in Teacher's Classes -->
+{% if students %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-users me-2"></i>
+                    Students in Teacher's Classes
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>
+                                    <span class="badge bg-primary">{{ student.student_id }}</span>
+                                </td>
+                                <td>
+                                    <strong>{{ student.full_name }}</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ student.current_class.name }}</span>
+                                </td>
+                                <td>
+                                    <a href="mailto:{{ student.email }}" class="text-decoration-none">
+                                        {{ student.email }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'academics:student_detail' student.student_id %}" 
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye me-1"></i>View
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %} 

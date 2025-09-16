@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Classes (CSV) - School Management System{% endblock %}
+{% block page_title %}Upload Classes (CSV){% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-upload me-2"></i>
+                    Upload Classes via CSV
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Instructions -->
+                <div class="alert alert-info">
+                    <h6><i class="fas fa-info-circle me-2"></i>Instructions:</h6>
+                    <ul class="mb-0">
+                        <li>Upload a CSV file with the following headers: <code>name,description</code></li>
+                        <li>Class names must be unique</li>
+                        <li>Description field is optional</li>
+                        <li>Each row represents one class/grade level</li>
+                    </ul>
+                </div>
+                
+                <!-- Sample CSV -->
+                <div class="alert alert-warning">
+                    <h6><i class="fas fa-file-csv me-2"></i>Sample CSV Format:</h6>
+                    <pre class="mb-0"><code>name,description
+Grade 9,First year of high school
+Grade 10,Second year of high school
+Grade 11,Third year of high school
+Grade 12,Final year of high school
+Kindergarten,Early childhood education
+Primary 1,First year of primary school
+Primary 2,Second year of primary school</code></pre>
+                </div>
+                
+                <form method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.csv_file.id_for_label }}" class="form-label">
+                            CSV File <span class="text-danger">*</span>
+                        </label>
+                        {{ form.csv_file }}
+                        {% if form.csv_file.errors %}
+                            <div class="text-danger small">{{ form.csv_file.errors.0 }}</div>
+                        {% endif %}
+                        <div class="form-text">{{ form.csv_file.help_text }}</div>
+                    </div>
+                    
+                    <!-- Form Actions -->
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'academics:class_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-2"></i>Upload Classes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

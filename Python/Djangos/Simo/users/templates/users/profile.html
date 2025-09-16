@@ -1,0 +1,136 @@
+{% extends 'blog/base.html' %}
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="mx-auto" style="max-width: 900px;">
+        <!-- Profile Header -->
+        <div class="card mb-5">
+            <div class="card-body text-center">
+                <div class="profile-avatar mb-4">
+                    <div class="avatar-circle">
+                        <span class="avatar-text">{{ user.username|first|upper }}</span>
+                    </div>
+                </div>
+                <h1 class="display-4 mb-2">{{ user.username }}</h1>
+                <p class="lead text-muted mb-4">Member since {{ user.date_joined|date:"F Y" }}</p>
+
+                <div class="row text-center g-3">
+                    <div class="col-12 col-sm-4">
+                        <div class="stat-card">
+                            <h3 class="stat-number">{{ total_posts }}</h3>
+                            <p class="stat-label">Posts</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="stat-card">
+                            <h3 class="stat-number">{{ user.date_joined|date:"d" }}</h3>
+                            <p class="stat-label">Joined Day</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <div class="stat-card">
+                            <h3 class="stat-number">{{ user.date_joined|date:"Y" }}</h3>
+                            <p class="stat-label">Joined Year</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User's Posts -->
+        <div class="mb-4">
+            <h2 class="section-title text-start">My Posts</h2>
+            {% if user_posts %}
+            <p class="lead text-muted">
+                You have published {{ total_posts }} post{{ total_posts|pluralize }}.
+                {% if is_paginated %}
+                Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ total_posts }} posts.
+                {% endif %}
+            </p>
+            {% else %}
+            <p class="lead text-muted">You haven't published any posts yet.</p>
+            {% endif %}
+        </div>
+
+        {% if user_posts %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for post in user_posts %}
+            {% include 'blog/post_card.html' %}
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="d-flex justify-content-center mt-5">
+            <nav aria-label="Profile posts pagination">
+                <ul class="pagination pagination-lg">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;&laquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;</span>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">&raquo;&raquo;</span>
+                        </li>
+                        {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h3>No posts yet!</h3>
+                    <p class="text-muted mb-4">Start sharing your thoughts with the community.</p>
+                    <a href="{% url 'create_post' %}" class="btn btn-primary">Create Your First Post</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

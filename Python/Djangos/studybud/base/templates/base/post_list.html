@@ -1,0 +1,37 @@
+{% extends 'base/main.html' %} {% block content %}
+<div class="container p-5">
+	<div class="mb-5">
+		<h1 class="section-title">
+			Derniers articles ({{ page_obj.paginator.count }})
+		</h1>
+		<p class="lead">
+			Découvrez les histoires et les insights de notre communauté
+		</p>
+	</div>
+
+	{% include "base/filter-posts.html" %}
+
+	<div class="row row-cols-1 row-cols-lg-3 g-3">
+		{% for post in posts %}
+		<div class="col">{% include "base/post-card.html" %}</div>
+		{% endfor %}
+	</div>
+
+	<!-- Pagination -->
+	{% if is_paginated %} {% include "base/post-pagination.html" %}{% endif %}
+	<!-- prettier-ignore -->
+	{% if not posts %}
+	<div class="text-center mt-5">
+		<div class="card">
+			<div class="card-body">
+				<h3>Aucun article pour le moment!</h3>
+				<p class="text-muted">Soyez le premier à partager votre histoire</p>
+				<a href="{% url 'create-post' %}" class="btn btn-primary"
+					>Créer un article</a
+				>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

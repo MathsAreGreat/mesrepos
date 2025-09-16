@@ -1,0 +1,78 @@
+{% extends "layout.html" %} {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+<title>{{ title }}</title>
+{% endblock %} {% block content %}
+<header class="text-center">
+  <h2 class="text-2xl font-bold uppercase mb-1">Create a post</h2>
+  <p class="mb-4">Class courses</p>
+</header>
+
+<form class="p-6 mx-auto">
+  <div class="mb-6 grid grid-cols-1 gap-4">
+    <input type="hidden" id="cid" value="{{ todos[0].chapter_id }}" />
+    <input type="text" id="chapter" value="{{ todos[0].chapter }}" />
+    {% for todo in todos %}
+    <p class="datas">
+      <input type="hidden" class="hid" value="{{ todo._id }}" />
+      <input
+        type="text"
+        class="p-2 border-2 nb"
+        value="{{ todo.nb if todo.nb > 0 else loop.index }}"
+      />
+      <span>{{ todo.title }}</span>
+    </p>
+
+    {% endfor %}
+    <button
+      id="btn"
+      class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+    >
+      Create Post
+    </button>
+    <div id="comment" class="text-green-500 text-center font-bold">zzzz</div>
+  </div>
+</form>
+
+<script>
+  let update = async (ID, nb, chapter, chapter_id) => {
+    const response = await fetch(`/edit/${ID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ nb, chapter, chapter_id }),
+    });
+    const todos = await response.json();
+    return todos;
+  };
+  document
+    .getElementById("btn")
+    .addEventListener("click", async function (event) {
+      event.preventDefault();
+      const ID = document.querySelector("#cid").value;
+      const ch = document.querySelector("#chapter").value;
+      const datas = document.querySelectorAll(".datas");
+      let donnees = [];
+      for (const data of datas) {
+        donnees.push([
+          data.querySelector(".hid").value,
+          data.querySelector(".nb").value,
+        ]);
+      }
+      donnees = donnees.sort((a, b) => Number(a[1]) - Number(b[1]));
+      console.log(donnees);
+      document.querySelector("#comment").textContent = "donnees";
+      for (let index = 0; index < donnees.length; index++) {
+        const element = donnees[index];
+        const nb = index + 1;
+        update(element[0], nb, ch, ID).then((e) => {
+          // Clear the input fields
+          data = datas[index];
+          data.querySelector(".nb").value = nb;
+          console.log(e);
+        });
+      }
+    });
+</script>
+
+{% endblock %}

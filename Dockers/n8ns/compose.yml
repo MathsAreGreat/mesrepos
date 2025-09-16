@@ -1,0 +1,34 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=n8n
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - n8n_network
+
+  video_sender:
+    build: ./video_sender   # path to your FastAPI app with Dockerfile
+    container_name: video_sender
+    restart: unless-stopped
+    networks:
+      - n8n_network
+    volumes:
+      - ./video_sender/app.py:/app/app.py  # mount your local file
+    ports:
+      - "8008:8000"
+
+volumes:
+  n8n_data:
+
+networks:
+  n8n_network:
+    driver: bridge

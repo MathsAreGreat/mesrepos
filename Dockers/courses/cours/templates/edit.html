@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+<title>Add cour</title>
+{% endblock %} {% block content %}
+<header class="text-center">
+  <h2 class="text-2xl font-bold uppercase mb-1">Create a post</h2>
+  <p class="mb-4">Post a new article</p>
+</header>
+
+<form class="p-6 mx-auto">
+  <div id="comment" class="text-green-500 text-center font-bold"></div>
+  <div class="mb-6 grid grid-cols-1 gap-4">
+    <input type="hidden" id="hid" value="{{todo._id}}" />
+    <label for="code" class="block text-lg"> Code </label>
+    <input class="block p-2 border-2" id="code" value="{{todo.code}}" />
+
+    <label for="nb" class="block text-lg"> Numero </label>
+    <input class="block p-2 border-2" id="nb" value="{{todo.nb}}" />
+
+    <label for="title" class="block text-lg"> title </label>
+    <input class="block p-2 border-2" id="title" value="{{todo.title}}" />
+
+    <label for="chapter" class="block text-lg"> chapter </label>
+    <select class="block p-2 border-2" name="chapter" id="chapter">
+      <option value="==">Select a chapter ...</option>
+      {% for chapter_id,chapter in chapters %}
+      <option
+        value="{{ chapter_id }}=={{ chapter }}"
+        {% if chapter_id == todo.chapter_id %}selected{% endif %}
+      >
+        {{ chapter }}
+      </option>
+      {% endfor %}
+    </select>
+
+    <label for="content" class="block text-lg mb-2"> Content </label>
+    <textarea
+      class="border border-gray-200 rounded p-2"
+      id="content"
+      rows="10"
+      placeholder="Include tasks, requirements, salary, etc"
+    >
+            {{todo.content}}
+        </textarea
+    >
+    <button
+      id="btn"
+      class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"
+    >
+      Create Post
+    </button>
+  </div>
+</form>
+
+<script>
+  let update = async (ID, nb, code, title, chapter_id, chapter, content) => {
+    const response = await fetch(`/edit/${ID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, nb, title, chapter, chapter_id, content }),
+    });
+    const todos = await response.json();
+    return todos;
+  };
+  document
+    .getElementById("btn")
+    .addEventListener("click", async function (event) {
+      event.preventDefault();
+      const ID = document.getElementById("hid").value;
+      const title = document.getElementById("title").value;
+      const nb = document.getElementById("nb").value;
+      const code = document.getElementById("code").value;
+      const chs = document.getElementById("chapter").value.split("==");
+      const content = document.getElementById("content").value;
+
+      update(ID, nb, code, title, chs[0], chs[1], content).then((_) => {
+        // Clear the input fields
+        document.getElementById("comment").value = "Updated !";
+        document.getElementById("title").value = "";
+        document.getElementById("code").value = "";
+        document.getElementById("chapter").value = "";
+        document.getElementById("content").value = "";
+      });
+    });
+</script>
+
+{% endblock %}

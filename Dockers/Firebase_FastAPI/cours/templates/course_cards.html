@@ -1,0 +1,72 @@
+<div class="flex justify-between items-center mb-8 flex-wrap gap-4">
+	<h2 class="text-3xl font-bold text-gray-900">Featured Course Paths</h2>
+	<div class="flex items-center bg-gray-100 rounded-full p-1">
+		<button
+			data-filter=""
+			class="bg-white text-gray-800 px-5 py-2 rounded-full shadow-sm whitespace-nowrap"
+		>
+			All Levels
+		</button>
+		<button
+			data-filter="coll"
+			class="text-gray-600 px-5 py-2 rounded-full whitespace-nowrap"
+		>
+			Collège
+		</button>
+
+		<button
+			data-filter="lyc"
+			class="text-gray-600 px-5 py-2 rounded-full whitespace-nowrap"
+		>
+			Lycée
+		</button>
+		<button
+			data-filter="sup"
+			class="text-gray-600 px-5 py-2 rounded-full whitespace-nowrap"
+		>
+			Etudes Supérieures
+		</button>
+	</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+	{% for course in featured_courses %}
+	<div
+		genre="{{ course.level }}"
+		class="course-card bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden transition-transform duration-300"
+	>
+		<div class="h-3 bg-{{ course.color }}"></div>
+		<div class="p-6">
+			<div
+				class="w-12 h-12 bg-{{ course.color }}/10 rounded-full flex items-center justify-center mb-4"
+			>
+				{% for nb in course.nbs %}<i
+					class="ri-number-{{ nb }} text-{{ course.color }} text-xl"
+				></i
+				>{% endfor %}
+			</div>
+			<h3 class="text-xl font-bold text-gray-900 mb-2">{{ course.title }}</h3>
+			<p class="text-gray-600 mb-4">{{ course.desc }}</p>
+			<div class="flex items-center text-sm text-gray-500 mb-4">
+				<div class="flex items-center mr-4">
+					<i class="ri-time-line mr-1"></i>
+					<span>{{ course.duration }} hrs</span>
+				</div>
+				<div class="flex items-center">
+					<i class="ri-user-line mr-1"></i>
+					<span>{{ course.level }}</span>
+				</div>
+			</div>
+			<div class="flex justify-between items-center">
+				<span class="text-{{ course.color }} font-semibold"
+					>{{ course.date }}</span
+				>
+				<button
+					class="text-{{ course.color }} hover:bg-{{ course.color }}/5 px-4 py-2 !rounded-button font-medium whitespace-nowrap"
+				>
+					<a href="{{ url_for('article', key=course.key) }}"> View Details </a>
+				</button>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
