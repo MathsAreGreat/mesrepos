@@ -266,5 +266,5 @@ if __name__ == "__main__":
     us = [
         urljoin(u, e) for e in re.findall(r"[^\"']+", p) if ".m3u8" in e or ".mp4" in e
     ]
-    aria_dwn(u, "/home/mohamed/Videos", us[0], "vid1.mp4")
+    aria_dwn(u, "/home/mohamed/Videos", us[0], "vid.mp4")
     print(p)
