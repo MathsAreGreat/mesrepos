@@ -145,13 +145,7 @@ def dsave(u):
 if __name__ == "__main__":
 
     us = [
-        "https://witanime.red/episode/grand-blue-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-12-%d9%88%d8%a7%d9%84%d8%a3%d8%ae%d9%8a%d8%b1%d8%a9/",
-        "https://witanime.red/episode/sakamoto-days-part-2-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-10/",
-        "https://witanime.red/episode/mikadono-sanshimai-wa-angai-choroi-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-10/",
-        "https://witanime.red/episode/futari-solo-camp-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-1/",
-        "https://witanime.red/episode/tsuihousha-shokudou-e-youkoso-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-11/",
-        "https://witanime.red/episode/watari-kun-no-xx-ga-houkai-sunzen-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-2/",
-        "https://witanime.red/episode/zutaboro-reijou-wa-ane-no-moto-konyakusha-ni-dekiai-sareru-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-1/",
+        "https://witanime.red/episode/grand-blue-season-2-%d8%a7%d9%84%d8%ad%d9%84%d9%82%d8%a9-11/",
     ]
 
     # with ThreadPoolExecutor(5) as executor:

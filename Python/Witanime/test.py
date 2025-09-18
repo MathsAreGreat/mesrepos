@@ -1,7 +1,8 @@
 import json
 import re
 from pathlib import Path
-from Mido.variables import print, download_m3u8_with_aria2c, aria_dwn
+from urllib.parse import urljoin
+from Mido.variables import print, download_m3u8_with_aria2c, aria_dwn, get_m3u8
 
 
 infos = {}
@@ -16,7 +17,7 @@ def no_found(t, arr):
     return 1
 
 
-ds = ["Turkey", "Futari", "Mikadono", "Watari", "Zutaboro"]
+ds = ["Grand Blue"]
 
 pr = Path("/home/mohamed/Documents/datas/Witanimes")
 vr = Path("/home/mohamed/Documents/Files")
@@ -67,17 +68,21 @@ infos = {
 
 links = sorted(infos.items(), key=lambda e: e[-1]["name"])
 
-# uns = [
-#     f.stem.split(".")[-1][1:-1]
-#     for f in Path("/home/mohamed/Downloads/Library").rglob("*.mp4")
-# ]
+uns = [
+    f.stem.split(".")[-1][1:-1]
+    for f in Path("/home/mohamed/Downloads/Library").rglob("*.mp4")
+]
 
-# for k, v in links:
-#     if k in uns:
-#         continue
-#     doc = f"/home/mohamed/Downloads/Library/{v["doc"]}"
-#     fname = f"{v["name"]}.({k}).mp4"
-#     uri = v["dl"]
-#     download_m3u8_with_aria2c(uri, f"{doc}/{fname}")
-
-print(links)
+for k, v in links:
+    if k in uns:
+        continue
+    doc = f"/home/mohamed/Downloads/Library/{v["doc"]}"
+    fname = f"{v["name"]}.({k}).mp4"
+    uri = v["dl"]
+    if "auvexiug." in uri:
+        p = get_m3u8(uri)
+        us = [e for e in re.findall(r"[^\"']+", p) if ".m3u8" in e]
+        uri = urljoin(uri, max(us, key=len))
+    print(uri)
+    print("=" * 50)
+    # download_m3u8_with_aria2c(uri, f"{doc}/{fname}")

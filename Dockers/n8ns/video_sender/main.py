@@ -4,7 +4,6 @@ import re
 from fastapi import FastAPI
 from bs4 import BeautifulSoup
 import requests
-from fastapi.responses import JSONResponse
 
 app = FastAPI()
 DATA_FILE = "seen_links.json"

@@ -1,0 +1,18 @@
+services:
+  firefox:
+    image: jlesage/firefox:latest
+    container_name: firefox
+    ports:
+      - "5800:5800"   # Web UI
+      - "5900:5900"   # VNC (optional)
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=1000
+      - TZ=Europe/Paris
+    shm_size: "1g"
+    tmpfs:
+      - /config:rw,size=200m
+    volumes:
+      - ./downloads:/downloads
+      # comment out the line below if you want an ephemeral profile
+    restart: unless-stopped

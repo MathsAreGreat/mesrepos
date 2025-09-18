@@ -1,0 +1,27 @@
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      - PUID=1000             # match your user id (check: id -u)
+      - PGID=1000             # match your group id (check: id -g)
+      - TZ=Europe/Paris       # set your timezone
+      - VERSION=docker        # auto-update Plex in container
+      # Optional: claim token to link with your Plex account
+      - PLEX_CLAIM=claim-eHs-6vTdrxgwjgRtxzys
+    volumes:
+      - ./config:/config      # Plex config (persistent)
+      - ./tv:/tv              # TV shows folder
+      - ./movies:/movies      # Movies folder
+      - ./music:/music        # Music folder
+    ports:
+      - 32400:32400           # Web UI & DLNA
+      - 3005:3005
+      - 8324:8324
+      - 32469:32469
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    restart: unless-stopped

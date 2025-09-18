@@ -33,10 +33,11 @@ ks = [
     "yuusha-party",
     "hotel-inhumans",
     "bullet-bullet",
-    "grand-blue",
     "jidou-hanbaiki",
     "hundred-memories",
     "astro-note",
+    "grand-blue",
+    "clevatess-majuu-no-ou-to-akago",
 ]
 
 

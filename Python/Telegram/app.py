@@ -29,6 +29,7 @@ while True:
 
     parent_path = Path("Files/YTS")
     files = sorted(parent_path.rglob("*.mp4"), key=lambda f: f.stem)
+    files += sorted(parent_path.rglob("*.mkv"), key=lambda f: f.stem)
     telegram_target = "https://t.me/+prQYogIOyVIzODZk"
     for file_path in files:
         caption = file_path.stem
