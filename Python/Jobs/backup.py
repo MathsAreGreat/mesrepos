@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
     delte_paths = [
         source_dir,
-        # Path("/home/mohamed/Videos"),
+        Path("/home/mohamed/Videos"),
         # Path("/home/mohamed/Music"),
         Path("/home/mohamed/Downloads/Library"),
     ]
